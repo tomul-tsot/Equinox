@@ -305,34 +305,187 @@ function HistoryView({ items }) {
   );
 }
 
-// ─── SplashScreen ─────────────────────────────────────────────────────────────
-function SplashScreen() {
-  const [status, setStatus] = useState("Initializing Neural Engine...");
+// ─── EarthCanvas ──────────────────────────────────────────────────────────────
+// Renders a proper 3D rotating sphere via per-pixel UV mapping onto a Canvas.
+function EarthCanvas() {
+  const canvasRef = useRef(null);
+  const textureDataRef = useRef(null);
+  const angleRef = useRef(0);
+  const animFrameRef = useRef(null);
+
   useEffect(() => {
-    const statuses = [
-      "Synchronizing Satellite Feeds...",
-      "Loading Crisis Models...",
-      "Connecting to Gemini Fusion Core...",
-      "Readying Operational Dashboard..."
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d', { alpha: true });
+
+    // RENDER RESOLUTION: 190x190 (4x fewer pixels than 380x380) for massive performance boost
+    const renderDim = 190;
+    const R = renderDim / 2;
+    const cx = R, cy = R;
+
+    const drawGlobe = () => {
+      ctx.clearRect(0, 0, renderDim, renderDim);
+      const angle = angleRef.current;
+
+      if (textureDataRef.current) {
+        const { data: texData, width: tw, height: th } = textureDataRef.current;
+        const imageData = ctx.createImageData(renderDim, renderDim);
+        const data = imageData.data;
+
+        // Light direction (upper-left)
+        const lx = -0.35, ly = -0.6, lz = 0.72;
+
+        for (let py = 0; py < renderDim; py++) {
+          const ny = (py - cy) / R;
+          const ny2 = ny * ny;
+          const pyRow = py * renderDim;
+
+          for (let px = 0; px < renderDim; px++) {
+            const nx = (px - cx) / R;
+            const d2 = nx * nx + ny2;
+            if (d2 > 1) continue;
+
+            const nz = Math.sqrt(1 - d2);
+
+            // Shading
+            const dot = nx * lx + ny * ly + nz * lz;
+            const light = Math.min(1.6, 0.1 + Math.max(0, dot) * 0.9 + Math.pow(Math.max(0, nz * 0.3 + Math.max(0, dot) * 0.7), 16) * 0.5);
+
+            // UV mapping
+            const theta = Math.atan2(nx, nz) + angle;
+            const phi = Math.asin(Math.max(-1, Math.min(1, ny)));
+            let u = ((theta / (Math.PI * 2)) + 0.5) % 1;
+            if (u < 0) u += 1;
+            const v = 0.5 - phi / Math.PI;
+
+            const tx = (u * tw | 0) % tw;
+            const ty = (v * th | 0) % th;
+            const ti = (ty * tw + tx) << 2;
+
+            const idx = (pyRow + px) << 2;
+            data[idx] = (texData[ti] * light) | 0;
+            data[idx + 1] = (texData[ti + 1] * light) | 0;
+            data[idx + 2] = (texData[ti + 2] * light) | 0;
+            data[idx + 3] = 255;
+          }
+        }
+        ctx.putImageData(imageData, 0, 0);
+      } else {
+        // Fallback
+        const g = ctx.createRadialGradient(cx - R * 0.3, cy - R * 0.3, R * 0.05, cx, cy, R);
+        g.addColorStop(0, '#1a5a8a');
+        g.addColorStop(1, '#000510');
+        ctx.beginPath();
+        ctx.arc(cx, cy, R, 0, Math.PI * 2);
+        ctx.fillStyle = g;
+        ctx.fill();
+      }
+
+      // Fast Overlays (Gradients are cheap)
+      const atmo = ctx.createRadialGradient(cx, cy, R * 0.82, cx, cy, R);
+      atmo.addColorStop(0, 'rgba(34,211,238,0)');
+      atmo.addColorStop(1, 'rgba(34,211,238,0.25)');
+      ctx.fillStyle = atmo;
+      ctx.beginPath(); ctx.arc(cx, cy, R, 0, Math.PI * 2); ctx.fill();
+
+      const shadow = ctx.createRadialGradient(cx + R * 0.55, cy + R * 0.35, R * 0.1, cx + R * 0.55, cy + R * 0.35, R * 1.15);
+      shadow.addColorStop(0, 'rgba(0,0,0,0)');
+      shadow.addColorStop(1, 'rgba(0,0,10,0.7)');
+      ctx.fillStyle = shadow;
+      ctx.beginPath(); ctx.arc(cx, cy, R, 0, Math.PI * 2); ctx.fill();
+
+      // Outer rim glow
+      ctx.save();
+      ctx.shadowColor = 'rgba(34,211,238,0.7)'; ctx.shadowBlur = 20;
+      ctx.strokeStyle = 'rgba(34,211,238,0.15)'; ctx.lineWidth = 1.5;
+      ctx.beginPath(); ctx.arc(cx, cy, R - 1, 0, Math.PI * 2); ctx.stroke();
+      ctx.restore();
+    };
+
+    const img = new Image();
+    img.crossOrigin = 'anonymous';
+    img.src = '/earth_texture.png';
+    img.onload = () => {
+      const tCanvas = document.createElement('canvas');
+      tCanvas.width = img.width; tCanvas.height = img.height;
+      const tCtx = tCanvas.getContext('2d');
+      tCtx.drawImage(img, 0, 0);
+      textureDataRef.current = tCtx.getImageData(0, 0, img.width, img.height);
+
+      const animate = () => {
+        angleRef.current += 0.004;
+        drawGlobe();
+        animFrameRef.current = requestAnimationFrame(animate);
+      };
+      animate();
+    };
+
+    return () => {
+      if (animFrameRef.current) cancelAnimationFrame(animFrameRef.current);
+    };
+  }, []);
+
+  return (
+    <canvas
+      ref={canvasRef}
+      width={190}
+      height={190}
+      style={{
+        width: '380px',
+        height: '380px',
+        borderRadius: '50%',
+        display: 'block',
+        position: 'relative',
+        zIndex: 2,
+        filter: 'drop-shadow(0 0 40px rgba(34,211,238,0.4))',
+        animation: 'globe-float 7s ease-in-out infinite',
+      }}
+    />
+  );
+}
+
+// ─── TelemetryStream ──────────────────────────────────────────────────────────
+function TelemetryStream() {
+  const stream = 'SYNC_0x9A2F ▸ DATA_ENCRYPTED ▸ LAT:28.6139 LON:77.2090 ▸ NEURAL_LINK:OK ▸ SIGINT_UPLINK ▸ GRID_SCAN:INV7 ▸ NODE:ALPHA-9 ▸ CLASSIFY_PRIORITY:RED ▸ ';
+  return (
+    <div className="telemetry-stream">
+      <div className="telemetry-line">
+        {stream}{stream}
+      </div>
+    </div>
+  );
+}
+
+// ─── SplashScreen ──────────────────────────────────────────────────────────────
+function SplashScreen() {
+  const [status, setStatus] = useState('Cold Booting Core Alpha-9...');
+
+  useEffect(() => {
+    const sequence = [
+      { t: 0, s: 'Cold Booting Core Alpha-9...' },
+      { t: 900, s: 'Synchronizing Global Node Grid...' },
+      { t: 2100, s: 'Deciphering Cryptographic Stream...' },
+      { t: 3300, s: 'Calibrating Neural Perception AI...' },
+      { t: 4600, s: 'Mapping Geo-Temporal Flux Fields...' },
+      { t: 5900, s: 'Operational Assets: STANDBY' },
+      { t: 6800, s: '▶  INTELMAP v2.0 PRO: ONLINE' },
     ];
-    let i = 0;
-    const id = setInterval(() => {
-      setStatus(statuses[i]);
-      i = (i + 1) % statuses.length;
-    }, 500);
-    return () => clearInterval(id);
+    sequence.forEach(item => setTimeout(() => setStatus(item.s), item.t));
   }, []);
 
   return (
     <div className="splash">
-      <div className="splash-logo">
-        <div className="topbar-brand-icon" style={{ width: 42, height: 42, fontSize: '1.2rem' }}>⬡</div>
-        INTELMAP
+      <div className="intro-container">
+        <div className="flare" />
+        <EarthCanvas />
+        <div className="universal-brand">INTELMAP</div>
       </div>
-      <div className="splash-progress-container">
-        <div className="splash-progress-bar" />
+      <div className="splash-status-container">
+        <div className="splash-status">{status}</div>
+        <div className="splash-progress-container">
+          <div className="splash-progress-bar" style={{ animationDuration: '7s' }} />
+        </div>
       </div>
-      <div className="splash-status">{status}</div>
     </div>
   );
 }
@@ -347,8 +500,8 @@ export default function App() {
   const [seen, setSeen] = useState(new Set());          // IDs that have been clicked
 
   useEffect(() => {
-    // Initial boot sequence
-    const timer = setTimeout(() => setAppLoading(false), 2500);
+    // Cinematic Intro Sequence - Overwhelming Duration
+    const timer = setTimeout(() => setAppLoading(false), 7200);
     return () => clearTimeout(timer);
   }, []);
 
