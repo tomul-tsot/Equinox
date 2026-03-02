@@ -122,7 +122,7 @@ export default function App() {
     setAnalysis(null);
     setError(null);
     try {
-      const result = await analyzeDisasterSignals(scenario.signals, scenario.name);
+      const result = await analyzeDisasterSignals(scenario.signals, scenario.name, scenario.id);
       setAnalysis(result);
     } catch (err) {
       console.error("Gemini error:", err);
@@ -350,6 +350,20 @@ export default function App() {
           {/* Analysis results */}
           {analysis && !loading && (
             <>
+              {/* Demo mode badge */}
+              {analysis._source === "demo" && (
+                <div style={{
+                  display: "flex", alignItems: "center", gap: "0.5rem",
+                  padding: "0.4rem 0.75rem",
+                  background: "rgba(251,191,36,0.06)",
+                  border: "1px solid rgba(251,191,36,0.25)",
+                  borderRadius: "6px",
+                  fontSize: "0.68rem", color: "var(--yellow)",
+                  letterSpacing: "0.08em",
+                }}>
+                  ◈ GEMINI DEMO MODE — Pre-seeded analysis (live API quota exceeded, rotate key to enable live)
+                </div>
+              )}
               {/* Row 1 — Threat + Resources + Population */}
               <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: "1rem" }}>
 
