@@ -1,35 +1,35 @@
 [
   {
-    "id": "1291983420",
-    "name": "Live: Sydney, New South Wales, Australia",
+    "id": "1291990769",
+    "name": "Live: Doha, Ad Daw'ah, Qatar",
     "emoji": "🚨",
-    "location": "Sydney, New South Wales, Australia",
-    "lat": -33.8833,
-    "lng": 151.217,
+    "location": "Doha, Ad Daw'ah, Qatar",
+    "lat": 25.2867,
+    "lng": 51.5333,
     "color": "var(--red)",
     "signals": [
       {
         "source": "GDELT",
         "type": "event_record",
-        "value": "Event 0090 detected at Sydney, New South Wales, Australia",
-        "timestamp": "20260302223000"
+        "value": "Event 0012 detected at Doha, Ad Daw'ah, Qatar",
+        "timestamp": "20260302231500"
       }
     ],
     "analysis": {
       "threat_level": "LOW",
       "affected_zones": [
-        "Sydney"
+        "Doha Downtown"
       ],
-      "primary_threat": "No specific news reports available to indicate significant damage or casualties.",
+      "primary_threat": "Unspecified minor disruptions in Doha.",
       "immediate_actions": [
         {
-          "action": "Monitor news and social media for updates",
-          "sector": "Sydney",
+          "action": "Monitor local news for updates",
+          "sector": "Doha",
           "priority": 1,
           "time_sensitive": false
         }
       ],
-      "reasoning": "Given the lack of specific news reports and the presence of 56 linked reports in GDELT, which may indicate a developing situation but without concrete evidence of significant damage or casualties, a cautious approach is warranted. The situation does not currently justify a higher threat level due to the absence of detailed information.",
+      "reasoning": "Sparse data hints at a potentially minor incident unfolding in Doha.",
       "resource_allocation": {
         "rescue_units": 0,
         "medical_teams": 0,
@@ -38,116 +38,45 @@
       },
       "signal_credibility": {
         "high": 0,
-        "medium": 56,
-        "low": 0
+        "medium": 0,
+        "low": 1
       },
-      "estimated_affected_population": "Unknown",
-      "next_6_hours_prediction": "The situation may evolve as more information becomes available, but without current evidence of severe impacts, significant changes are not anticipated in the short term."
+      "estimated_affected_population": "Less than 100 Civilians",
+      "next_6_hours_prediction": "Stable situation expected."
     },
     "isLive": true
   },
   {
-    "id": "FOCUS_MUMBAI_1772490173",
-    "name": "Live: mumbai",
+    "id": "1291990069",
+    "name": "Live: Tehran, Tehran, Iran",
     "emoji": "🚨",
-    "location": "mumbai",
-    "lat": 19.076,
-    "lng": 72.8777,
+    "location": "Tehran, Tehran, Iran",
+    "lat": 35.75,
+    "lng": 51.5148,
     "color": "var(--red)",
     "signals": [
       {
         "source": "GDELT",
         "type": "event_record",
-        "value": "Event FOCUS detected at mumbai",
-        "timestamp": "1772490173"
-      },
-      {
-        "source": "News",
-        "type": "news_clip",
-        "value": "Heavy rain paralyses India's financial capital Mumbai",
-        "timestamp": "Just now"
-      },
-      {
-        "source": "News",
-        "type": "news_clip",
-        "value": "EXCLUSIVE: Mumbai CNG crisis: Why it happened? From volume loss to ...",
-        "timestamp": "Just now"
-      },
-      {
-        "source": "News",
-        "type": "news_clip",
-        "value": "Heavy rains batter Maharashtra: 8 dead, 1 missing, thousands evacuated",
-        "timestamp": "Just now"
-      }
-    ],
-    "analysis": {
-      "threat_level": "MEDIUM",
-      "affected_zones": [
-        "Mumbai"
-      ],
-      "primary_threat": "Heavy rains causing significant disruptions and potential casualties in Mumbai",
-      "immediate_actions": [
-        {
-          "action": "Deploy emergency response teams to assess and mitigate damage",
-          "sector": "Mumbai",
-          "priority": 1,
-          "time_sensitive": true
-        },
-        {
-          "action": "Establish communication channels with local authorities and residents",
-          "sector": "Mumbai",
-          "priority": 2,
-          "time_sensitive": false
-        }
-      ],
-      "reasoning": "While the GDELT context suggests a significant event with 10 linked reports, the ground context provides mixed signals. Heavy rain and CNG crisis reports are concerning, but the absence of detailed casualty reports and the focus on 'paralyzing' rain rather than catastrophic damage warrants a medium threat level. The report of 8 dead and 1 missing in Maharashtra, however, indicates a need for caution and prompt assessment.",
-      "resource_allocation": {
-        "rescue_units": 2,
-        "medical_teams": 1,
-        "supply_drops": 0,
-        "evacuation_buses": 0
-      },
-      "signal_credibility": {
-        "high": 2,
-        "medium": 4,
-        "low": 4
-      },
-      "estimated_affected_population": "Thousands",
-      "next_6_hours_prediction": "The situation may escalate if the heavy rains continue, potentially leading to increased casualties and displacement. Continuous monitoring of the situation is necessary to provide timely and effective response."
-    },
-    "isLive": true
-  },
-  {
-    "id": "1291982305",
-    "name": "Live: Iran",
-    "emoji": "🚨",
-    "location": "Iran",
-    "lat": 32.0,
-    "lng": 53.0,
-    "color": "var(--red)",
-    "signals": [
-      {
-        "source": "GDELT",
-        "type": "event_record",
-        "value": "Event 0180 detected at Iran",
-        "timestamp": "20260302221500"
+        "value": "Event 0138 detected at Tehran, Tehran, Iran",
+        "timestamp": "20260302231500"
       }
     ],
     "analysis": {
       "threat_level": "LOW",
       "affected_zones": [
-        "Iran"
+        "Tehran City Center"
       ],
-      "primary_threat": "Generalized reports with no specific details on disruptions or casualties",
+      "primary_threat": "Uncorroborated reports of potential disruptions in Tehran.",
       "immediate_actions": [
         {
-          "action": "Monitor local news and social media for updates",
-          "sector": "Iran",
+          "action": "Monitor local news for updates",
+          "sector": "Tehran",
           "priority": 1,
           "time_sensitive": false
         }
       ],
-      "reasoning": "The GDELT context indicates 20 linked reports, but without specific news reports or ground context, it's challenging to assess the situation accurately. The lack of detailed information suggests that the situation may not be severe, but continuous monitoring is necessary to reassess the threat level as more information becomes available.",
+      "reasoning": "Sparse data hints at minor unrest in Tehran's urban core.",
       "resource_allocation": {
         "rescue_units": 0,
         "medical_teams": 0,
@@ -160,88 +89,41 @@
         "low": 1
       },
       "estimated_affected_population": "Unknown",
-      "next_6_hours_prediction": "The situation is expected to remain unclear due to the lack of specific information, but it may evolve as more reports become available."
+      "next_6_hours_prediction": "Stable with potential for minor incidents."
     },
     "isLive": true
   },
   {
-    "id": "1291981448",
-    "name": "Live: Ebor, New South Wales, Australia",
+    "id": "1291990372",
+    "name": "Live: Mina Al Ahmadi, Kuwait (general), Kuwait",
     "emoji": "🚨",
-    "location": "Ebor, New South Wales, Australia",
-    "lat": -30.4,
-    "lng": 152.35,
+    "location": "Mina Al Ahmadi, Kuwait (general), Kuwait",
+    "lat": 29.0639,
+    "lng": 48.1419,
     "color": "var(--red)",
     "signals": [
       {
         "source": "GDELT",
         "type": "event_record",
-        "value": "Event 0173 detected at Ebor, New South Wales, Australia",
-        "timestamp": "20260302221500"
+        "value": "Event 0180 detected at Mina Al Ahmadi, Kuwait (general), Kuwait",
+        "timestamp": "20260302231500"
       }
     ],
     "analysis": {
       "threat_level": "LOW",
       "affected_zones": [
-        "Ebor"
+        "Mina Al Ahmadi"
       ],
-      "primary_threat": "No specific news reports available to indicate significant damage or casualties.",
-      "immediate_actions": [
-        {
-          "action": "Monitor local news and social media for updates",
-          "sector": "Ebor, New South Wales, Australia",
-          "priority": 1,
-          "time_sensitive": false
-        }
-      ],
-      "reasoning": "Given the lack of specific news reports and the presence of 48 linked reports in GDELT, it is challenging to assess the situation accurately. However, without concrete evidence of significant damage, casualties, or disruptions, it is prudent to maintain a skeptical stance and classify the threat level as LOW. The situation warrants continued monitoring for updates.",
-      "resource_allocation": {
-        "rescue_units": 0,
-        "medical_teams": 0,
-        "supply_drops": 0,
-        "evacuation_buses": 0
-      },
-      "signal_credibility": {
-        "high": 0,
-        "medium": 0,
-        "low": 1
-      },
-      "estimated_affected_population": "Unknown",
-      "next_6_hours_prediction": "The situation is expected to remain unclear due to the lack of specific information. Continued monitoring is necessary to reassess the threat level as more data becomes available."
-    },
-    "isLive": true
-  },
-  {
-    "id": "1291981432",
-    "name": "Live: Ebor, New South Wales, Australia",
-    "emoji": "🚨",
-    "location": "Ebor, New South Wales, Australia",
-    "lat": -30.4,
-    "lng": 152.35,
-    "color": "var(--red)",
-    "signals": [
-      {
-        "source": "GDELT",
-        "type": "event_record",
-        "value": "Event 0010 detected at Ebor, New South Wales, Australia",
-        "timestamp": "20260302221500"
-      }
-    ],
-    "analysis": {
-      "threat_level": "LOW",
-      "affected_zones": [
-        "Ebor"
-      ],
-      "primary_threat": "Insufficient information available to determine the nature of the threat.",
+      "primary_threat": "Uncorroborated reports of a potential incident in Mina Al Ahmadi, Kuwait.",
       "immediate_actions": [
         {
           "action": "Gather more information",
-          "sector": "Ebor, New South Wales, Australia",
+          "sector": "Mina Al Ahmadi",
           "priority": 1,
           "time_sensitive": false
         }
       ],
-      "reasoning": "The GDELT context indicates 60 linked reports, but without specific news reports or social media signals, it's challenging to assess the situation accurately. The lack of concrete information leads to a low threat level designation, as there's no clear evidence of significant damage, casualties, or disruptions.",
+      "reasoning": "Sparse data hints at a possible anomaly in Mina Al Ahmadi, warranting further investigation.",
       "resource_allocation": {
         "rescue_units": 0,
         "medical_teams": 0,
@@ -254,101 +136,7 @@
         "low": 1
       },
       "estimated_affected_population": "Unknown",
-      "next_6_hours_prediction": "The situation is expected to remain unclear without additional information."
-    },
-    "isLive": true
-  },
-  {
-    "id": "FOCUS_AD DAW?AH_1772489845",
-    "name": "Live: Ad Daw'ah",
-    "emoji": "🚨",
-    "location": "Ad Daw'ah",
-    "lat": 14.582771,
-    "lng": 43.880723,
-    "color": "var(--red)",
-    "signals": [
-      {
-        "source": "GDELT",
-        "type": "event_record",
-        "value": "Event FOCUS detected at Ad Daw'ah",
-        "timestamp": "1772489846"
-      }
-    ],
-    "analysis": {
-      "threat_level": "LOW",
-      "affected_zones": [
-        "Ad Daw'ah"
-      ],
-      "primary_threat": "Generalized reports with no specific details on disruptions or casualties.",
-      "immediate_actions": [
-        {
-          "action": "Monitor local news and social media for updates",
-          "sector": "Ad Daw'ah",
-          "priority": 1,
-          "time_sensitive": false
-        }
-      ],
-      "reasoning": "The situation is labeled as LOW due to the lack of specific news reports and details on the nature of the event. The GDELT context suggests an event of interest but without concrete evidence of significant damage, casualties, or disruptions, it's prudent to maintain a cautious assessment.",
-      "resource_allocation": {
-        "rescue_units": 0,
-        "medical_teams": 0,
-        "supply_drops": 0,
-        "evacuation_buses": 0
-      },
-      "signal_credibility": {
-        "high": 0,
-        "medium": 10,
-        "low": 0
-      },
-      "estimated_affected_population": "Unknown",
-      "next_6_hours_prediction": "The situation is expected to remain stable unless new information emerges indicating otherwise."
-    },
-    "isLive": true
-  },
-  {
-    "id": "FOCUS_LAGOS_1772489846",
-    "name": "Live: Lagos",
-    "emoji": "🚨",
-    "location": "Lagos",
-    "lat": 6.4550575,
-    "lng": 3.3941795,
-    "color": "var(--red)",
-    "signals": [
-      {
-        "source": "GDELT",
-        "type": "event_record",
-        "value": "Event FOCUS detected at Lagos",
-        "timestamp": "1772489848"
-      }
-    ],
-    "analysis": {
-      "threat_level": "LOW",
-      "affected_zones": [
-        "Lagos"
-      ],
-      "primary_threat": "Generalized reports with no specific details on disruptions or casualties.",
-      "immediate_actions": [
-        {
-          "action": "Monitor situation for updates",
-          "sector": "Lagos",
-          "priority": 1,
-          "time_sensitive": false
-        }
-      ],
-      "reasoning": "The GDELT context indicates 10 linked reports, but without specific news reports or social media signals, it's challenging to assess the severity of the situation. The lack of concrete information suggests that the situation may not be as severe as it would be with confirmed casualties or significant damage. Therefore, a LOW threat level is assigned due to the absence of detailed information.",
-      "resource_allocation": {
-        "rescue_units": 0,
-        "medical_teams": 0,
-        "supply_drops": 0,
-        "evacuation_buses": 0
-      },
-      "signal_credibility": {
-        "high": 0,
-        "medium": 0,
-        "low": 10
-      },
-      "estimated_affected_population": "Unknown",
-      "next_6_hours_prediction": "The situation is expected to remain unclear without additional information, but ongoing monitoring may reveal more details."
+      "next_6_hours_prediction": "Stable situation expected"
     },
     "isLive": true
   }

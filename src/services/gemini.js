@@ -45,7 +45,7 @@ Respond ONLY in this exact JSON format, no markdown, no extra text:
     {"action": "Deploy water rescue units", "sector": "Adyar Basin", "priority": 1, "time_sensitive": true},
     {"action": "Set up emergency medical camp", "sector": "T Nagar", "priority": 2, "time_sensitive": false}
   ],
-  "reasoning": "2-3 sentences explaining the chain of logic: which signals triggered which decisions and why the priority ordering was chosen.",
+  "reasoning": "An exceptionally concise (MAX 50 WORDS) explanation of the chain of logic explaining which signals triggered which decisions.",
   "resource_allocation": {
     "rescue_units": 4,
     "medical_teams": 3,

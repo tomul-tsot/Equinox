@@ -94,7 +94,7 @@ Respond ONLY in this exact JSON format, no markdown, no extra text:
   "immediate_actions": [
     {{"action": "Action name", "sector": "Specific sector", "priority": 1, "time_sensitive": true}}
   ],
-  "reasoning": "A DETAILED explanation of the threat, including what the news signals signify and why the threat level was chosen. Discuss specifically the GDELT volume and the Search snippets if they point to a crisis.",
+  "reasoning": "A highly concise (MAX 50 WORDS) explanation of the threat, what the news signals signify, and why the threat level was chosen. Discuss the GDELT volume and Search snippets briefly.",
   "resource_allocation": {{
     "rescue_units": 0,
     "medical_teams": 0,
@@ -169,26 +169,28 @@ SCALING CRITERIA:
 - HIGH: Confirmed casualties, large-scale displacement, or major infrastructure collapse.
 - CRITICAL: Active life-threatening emergency with multiple requests for rescue.
 
-Respond ONLY in this JSON format:
+RESPOND IN THIS EXACT JSON FORMAT:
 {{
   "threat_level": "LOW/MEDIUM/HIGH/CRITICAL",
   "affected_zones": ["Zone 1", "Zone 2"],
-  "primary_threat": "Summary sentence",
+  "primary_threat": "A single descriptive sentence of the exact incident type.",
   "immediate_actions": [
     {{"action": "Action desc", "sector": "Location", "priority": 1, "time_sensitive": true}}
   ],
-  "reasoning": "Be skeptical. If news is sparse, label as LOW/MEDIUM and explain why.",
+  "reasoning": "Write a highly unique, short intelligence briefing paragraph (MAXIMUM 50 WORDS). Explain EXACTLY what the data indicates about THIS location. Be creative but exceptionally concise. DO NOT exceed 50 words.",
   "resource_allocation": {{ "rescue_units": 0, "medical_teams": 0, "supply_drops": 0, "evacuation_buses": 0 }},
   "signal_credibility": {{ "high": 0, "medium": 0, "low": 0 }},
   "estimated_affected_population": "Civilians count",
-  "next_6_hours_prediction": "Situation evolution."
+  "next_6_hours_prediction": "Short prediction."
 }}
 
 CRITICAL INSTRUCTIONS FOR REASONING:
-Provide a PROFESSIONAL EXECUTIVE SUMMARY. 
-Synthesize what the GDELT volume suggests based on the ground-level news and social media signals.
-If news is sparse or conflicting, maintain professional skepticism but highlight why specific signals are concerning.
-Return ONLY valid JSON.
+- Write like an expert human intelligence analyst.
+- Make EVERY incident sound completely unique.
+- Tell a brief story about what the data noise suggests for this exact city.
+- DO NOT use bullet points. Use flowing, descriptive sentences.
+- Return ONLY valid JSON.
+
 """
 
     headers = {
@@ -233,9 +235,9 @@ def generate_live_data_summary(event_row, context_snippets):
     if platforms:
         summary_parts.append(f"Verified activity spikes detected across {', '.join(platforms)}.")
 
-    reasoning = " ".join(summary_parts) if summary_parts else "Comprehensive ground reports are currently being aggregated. GDELT volume indicates localized activity."
+    reasoning = " ".join(summary_parts) if summary_parts else "GDELT volume indicates localized activity."
     
-    full_reasoning = f"LIVE DATA SUMMARY: We are synthesizing multiple streams for {event_row['ActionGeo_FullName']}. {reasoning} The current threat profile is categorized as MEDIUM while high-fidelity verification is in progress."
+    full_reasoning = f"Analyzing streams for {event_row['ActionGeo_FullName']}. {reasoning} Threat level MEDIUM pending verification."
     
     return {
       "threat_level": "MEDIUM", 

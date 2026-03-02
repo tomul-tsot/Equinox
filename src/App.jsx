@@ -3,6 +3,7 @@ import { analyzeDisasterSignals } from "./services/gemini";
 import { disasterScenarios } from "./data/mockSignals";
 import { demoResponses } from "./data/demoResponses";
 import "./index.css";
+import "./App.css";
 
 // ─── helpers ─────────────────────────────────────────────────────────────────
 function Clock() {
@@ -12,6 +13,49 @@ function Clock() {
     return () => clearInterval(id);
   }, []);
   return <span className="topbar-clock">{t}</span>;
+}
+
+// ─── Cinematic Intro ─────────────────────────────────────────────────────────
+function CinematicIntro({ showIntro }) {
+  const [lines, setLines] = useState(["> INITIALIZING DISASTER PREVENTION GRID..."]);
+
+  useEffect(() => {
+    const sequence = [
+      { t: 800, msg: "ESTABLISHING SECURE SATCOM LINK..." },
+      { t: 1600, msg: "CONNECTING TO GROQ LPU CLUSTER..." },
+      { t: 2400, msg: "SYNCING GDELT GLOBAL EVENT DATABASE..." },
+      { t: 3200, msg: "ANALYZING TACTICAL SOCIAL SIGNALS (TELEGRAM/REDDIT)..." },
+      { t: 4200, msg: "ACCESS GRANTED. BOOTING INTELMAP UI." }
+    ];
+
+    sequence.forEach(({ t, msg }) => {
+      setTimeout(() => setLines(prev => [...prev, `> ${msg}`]), t);
+    });
+  }, []);
+
+  return (
+    <div className={`cinematic-intro ${!showIntro ? 'fade-out' : ''}`}>
+      <div className="cinematic-earth-container">
+        <div className="cinematic-earth" />
+        <div className="cinematic-ring">
+          <div className="cinematic-text-wrap">
+            <div className="cinematic-text-scroll">
+              INTELMAP
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div className="cinematic-console">
+        {lines.map((line, i) => (
+          <div key={i} className="cinematic-console-line">
+            {line.replace("> ", "")}
+            {i === lines.length - 1 && <span className="console-blink" style={{ color: "var(--text)" }}>_</span>}
+          </div>
+        ))}
+      </div>
+    </div>
+  );
 }
 
 // ─── Map panel ────────────────────────────────────────────────────────────────
@@ -332,6 +376,17 @@ function HistoryView({ items, onReactivate }) {
 
 // ─── Main App ─────────────────────────────────────────────────────────────────
 export default function App() {
+  // ── NEW: Cinematic Intro State ──
+  const [showIntro, setShowIntro] = useState(true);
+  const [actuallyRenderIntro, setActuallyRenderIntro] = useState(true);
+
+  // Leave exactly at 6s, then unmount after fade completes
+  useEffect(() => {
+    const timer1 = setTimeout(() => setShowIntro(false), 6000); // Trigger fade 
+    const timer2 = setTimeout(() => setActuallyRenderIntro(false), 7000); // Completely remove DOM
+    return () => { clearTimeout(timer1); clearTimeout(timer2); }
+  }, []);
+
   const [tab, setTab] = useState("dashboard");          // "dashboard" | "history"
   const [activeScenarios, setActiveScenarios] = useState(disasterScenarios);
 
@@ -419,137 +474,140 @@ export default function App() {
   };
 
   return (
-    <div className="app">
+    <>
+      {actuallyRenderIntro && <CinematicIntro showIntro={showIntro} />}
+      <div className="app">
 
-      {/* ── Top bar ── */}
-      <div className="topbar">
-        <div className="topbar-brand">
-          <div className="topbar-brand-icon">⬡</div>
-          INTELMAP
-          <span style={{ fontSize: "0.65rem", color: "var(--text3)", fontWeight: 400, letterSpacing: "0.04em" }}>
-            Crisis Intelligence
-          </span>
-        </div>
-
-        <nav className="topbar-tabs">
-          <button
-            className={`tab ${tab === "dashboard" ? "active" : ""}`}
-            onClick={() => setTab("dashboard")}
-          >
-            Main Dashboard
-          </button>
-          <button
-            className={`tab ${tab === "history" ? "active" : ""}`}
-            onClick={() => setTab("history")}
-          >
-            History
-            {history.length > 0 && (
-              <span style={{ marginLeft: "6px", background: "rgba(34,197,94,0.15)", border: "1px solid rgba(34,197,94,0.3)", color: "var(--green)", borderRadius: "10px", padding: "0 5px", fontSize: "0.6rem", fontWeight: 700 }}>
-                {history.length}
-              </span>
-            )}
-          </button>
-        </nav>
-
-        <div className="topbar-helpline">
-          <span className="helpline-label">EMERGENCY HELPLINE:</span>
-          <span className="helpline-number">112 / 108</span>
-        </div>
-
-        <Clock />
-      </div>
-
-      {/* ── History tab ── */}
-      {tab === "history" && (
-        <div style={{ flex: 1, overflowY: "auto" }}>
-          <div style={{ padding: "0.75rem 1rem", borderBottom: "1px solid var(--border)", fontSize: "0.65rem", fontWeight: 700, letterSpacing: "0.12em", textTransform: "uppercase", color: "var(--text3)" }}>
-            Resolved Incidents
-          </div>
-          <HistoryView items={history} onReactivate={handleReactivate} />
-        </div>
-      )}
-
-      {/* ── Dashboard tab ── */}
-      {tab === "dashboard" && (
-        <div className="main">
-
-          {/* ── Column 1: Incident Feed ── */}
-          <div className="col">
-            <div className="col-header" style={{ display: 'flex', flexDirection: 'column', gap: '8px', height: 'auto', padding: '10px' }}>
-              <div style={{ display: 'flex', justifyContent: 'space-between', width: '100%' }}>
-                <span>Incident Feed</span>
-                {isSearching && <span style={{ color: 'var(--cyan)', fontSize: '0.6rem' }}>● SCANNING...</span>}
-              </div>
-
-              <form onSubmit={handleSearch} className="search-bar">
-                <input
-                  type="text"
-                  placeholder="Analyze City (e.g. Mumbai)..."
-                  value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
-                  disabled={isSearching}
-                />
-                <button type="submit" disabled={isSearching} title="Search">
-                  {isSearching ? "..." : "🔍"}
-                </button>
-              </form>
-            </div>
-            <div className="col-body">
-              {activeScenarios.length === 0 && (
-                <div style={{ padding: "2rem 1rem", textAlign: "center", color: "var(--text3)", fontSize: "0.75rem" }}>
-                  <div style={{ fontSize: "1.5rem", marginBottom: "0.5rem", opacity: 0.3 }}>✓</div>
-                  All incidents handled
-                </div>
-              )}
-              {activeScenarios.map((s) => {
-                const isNew = !seen.has(s.id);
-                const isSelected = selected?.id === s.id;
-                return (
-                  <div
-                    key={s.id}
-                    className={`incident-card ${isSelected ? "selected" : ""}`}
-                    onClick={() => handleSelect(s)}
-                  >
-                    {isNew && <div className="new-badge">● New</div>}
-                    {s.isLive && (
-                      <div className="new-badge" style={{ background: "rgba(239,68,68,0.15)", color: "var(--red)", border: "1px solid rgba(239,68,68,0.3)", marginLeft: isNew ? "45px" : "0" }}>
-                        ● LIVE
-                      </div>
-                    )}
-                    <div className="incident-name" style={{ color: isSelected ? s.color : "var(--text)" }}>
-                      {s.emoji} {s.name}
-                    </div>
-                    <div className="incident-meta">{s.location}</div>
-                  </div>
-                );
-              })}
-            </div>
+        {/* ── Top bar ── */}
+        <div className="topbar">
+          <div className="topbar-brand">
+            <div className="topbar-brand-icon">⬡</div>
+            INTELMAP
+            <span style={{ fontSize: "0.65rem", color: "var(--text3)", fontWeight: 400, letterSpacing: "0.04em" }}>
+              Crisis Intelligence
+            </span>
           </div>
 
-          {/* ── Column 2: AI Analysis ── */}
-          <div className="col">
-            <div className="col-header">
-              AI Analysis
-              {selected && (
-                <span style={{ marginLeft: "0.5rem", opacity: 0.5, fontWeight: 400, letterSpacing: 0, textTransform: "none", fontSize: "0.65rem" }}>
-                  — {selected.name}
+          <nav className="topbar-tabs">
+            <button
+              className={`tab ${tab === "dashboard" ? "active" : ""}`}
+              onClick={() => setTab("dashboard")}
+            >
+              Main Dashboard
+            </button>
+            <button
+              className={`tab ${tab === "history" ? "active" : ""}`}
+              onClick={() => setTab("history")}
+            >
+              History
+              {history.length > 0 && (
+                <span style={{ marginLeft: "6px", background: "rgba(34,197,94,0.15)", border: "1px solid rgba(34,197,94,0.3)", color: "var(--green)", borderRadius: "10px", padding: "0 5px", fontSize: "0.6rem", fontWeight: 700 }}>
+                  {history.length}
                 </span>
               )}
-            </div>
-            <AnalysisPanel
-              scenario={selected}
-              onHandled={handleHandled}
-            />
+            </button>
+          </nav>
+
+          <div className="topbar-helpline">
+            <span className="helpline-label">EMERGENCY HELPLINE:</span>
+            <span className="helpline-number">112 / 108</span>
           </div>
 
-          {/* ── Column 3: Map ── */}
-          <div className="col" style={{ borderRight: "none" }}>
-            <div className="col-header">Map Location</div>
-            <MapPanel scenario={selected} />
-          </div>
-
+          <Clock />
         </div>
-      )}
-    </div>
+
+        {/* ── History tab ── */}
+        {tab === "history" && (
+          <div style={{ flex: 1, overflowY: "auto" }}>
+            <div style={{ padding: "0.75rem 1rem", borderBottom: "1px solid var(--border)", fontSize: "0.65rem", fontWeight: 700, letterSpacing: "0.12em", textTransform: "uppercase", color: "var(--text3)" }}>
+              Resolved Incidents
+            </div>
+            <HistoryView items={history} onReactivate={handleReactivate} />
+          </div>
+        )}
+
+        {/* ── Dashboard tab ── */}
+        {tab === "dashboard" && (
+          <div className="main">
+
+            {/* ── Column 1: Incident Feed ── */}
+            <div className="col">
+              <div className="col-header" style={{ display: 'flex', flexDirection: 'column', gap: '8px', height: 'auto', padding: '10px' }}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', width: '100%' }}>
+                  <span>Incident Feed</span>
+                  {isSearching && <span style={{ color: 'var(--cyan)', fontSize: '0.6rem' }}>● SCANNING...</span>}
+                </div>
+
+                <form onSubmit={handleSearch} className="search-bar">
+                  <input
+                    type="text"
+                    placeholder="Analyze City (e.g. Mumbai)..."
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                    disabled={isSearching}
+                  />
+                  <button type="submit" disabled={isSearching} title="Search">
+                    {isSearching ? "..." : "🔍"}
+                  </button>
+                </form>
+              </div>
+              <div className="col-body">
+                {activeScenarios.length === 0 && (
+                  <div style={{ padding: "2rem 1rem", textAlign: "center", color: "var(--text3)", fontSize: "0.75rem" }}>
+                    <div style={{ fontSize: "1.5rem", marginBottom: "0.5rem", opacity: 0.3 }}>✓</div>
+                    All incidents handled
+                  </div>
+                )}
+                {activeScenarios.map((s) => {
+                  const isNew = !seen.has(s.id);
+                  const isSelected = selected?.id === s.id;
+                  return (
+                    <div
+                      key={s.id}
+                      className={`incident-card ${isSelected ? "selected" : ""}`}
+                      onClick={() => handleSelect(s)}
+                    >
+                      {isNew && <div className="new-badge">● New</div>}
+                      {s.isLive && (
+                        <div className="new-badge" style={{ background: "rgba(239,68,68,0.15)", color: "var(--red)", border: "1px solid rgba(239,68,68,0.3)", marginLeft: isNew ? "45px" : "0" }}>
+                          ● LIVE
+                        </div>
+                      )}
+                      <div className="incident-name" style={{ color: isSelected ? s.color : "var(--text)" }}>
+                        {s.emoji} {s.name}
+                      </div>
+                      <div className="incident-meta">{s.location}</div>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+
+            {/* ── Column 2: AI Analysis ── */}
+            <div className="col">
+              <div className="col-header">
+                AI Analysis
+                {selected && (
+                  <span style={{ marginLeft: "0.5rem", opacity: 0.5, fontWeight: 400, letterSpacing: 0, textTransform: "none", fontSize: "0.65rem" }}>
+                    — {selected.name}
+                  </span>
+                )}
+              </div>
+              <AnalysisPanel
+                scenario={selected}
+                onHandled={handleHandled}
+              />
+            </div>
+
+            {/* ── Column 3: Map ── */}
+            <div className="col" style={{ borderRight: "none" }}>
+              <div className="col-header">Map Location</div>
+              <MapPanel scenario={selected} />
+            </div>
+
+          </div>
+        )}
+      </div>
+    </>
   );
 }
