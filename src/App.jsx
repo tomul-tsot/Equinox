@@ -1,8 +1,8 @@
 import { useState, useEffect, useRef } from "react";
 import { analyzeDisasterSignals } from "./services/gemini";
-import { disasterScenarios } from "./data/mockSignals";
-import { demoResponses } from "./data/demoResponses";
 import "./index.css";
+
+const API_BASE = "http://localhost:5001/api";
 
 // ─── helpers ─────────────────────────────────────────────────────────────────
 function Clock() {
@@ -98,13 +98,7 @@ function AnalysisPanel({ scenario, onHandled }) {
         }
       })
       .catch(() => {
-        // Fallback to demo response so the UI always shows something useful
-        const demo = demoResponses[scenario.id];
-        if (demo) {
-          setAnalysis(demo);
-        } else {
-          setError(true);
-        }
+        setError(true);
       })
       .finally(() => setLoading(false));
   }, [scenario?.id]);
@@ -277,7 +271,7 @@ function AnalysisPanel({ scenario, onHandled }) {
 }
 
 // ─── History view ─────────────────────────────────────────────────────────────
-function HistoryView({ items }) {
+function HistoryView({ items, onRestore }) {
   if (items.length === 0) {
     return (
       <div className="history-empty">
@@ -290,15 +284,35 @@ function HistoryView({ items }) {
   return (
     <div>
       {items.map((item) => (
-        <div key={item.id + item.resolvedAt} className="history-item">
-          <div className="history-check">✓</div>
-          <div>
-            <div className="history-name">{item.emoji} {item.name}</div>
-            <div className="history-meta">{item.location}</div>
-            <div className="history-meta" style={{ marginTop: "2px", color: "var(--text3)" }}>
-              Resolved at {item.resolvedAt}
+        <div key={item.id + item.resolved_at} className="history-item" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+          <div style={{ display: 'flex', gap: '0.75rem' }}>
+            <div className="history-check">✓</div>
+            <div>
+              <div className="history-name">{item.emoji} {item.name}</div>
+              <div className="history-meta">{item.location}</div>
+              <div className="history-meta" style={{ marginTop: "2px", color: "var(--text3)" }}>
+                Resolved at {item.resolved_at}
+              </div>
             </div>
           </div>
+          <button
+            className="restore-btn"
+            onClick={() => onRestore(item)}
+            title="Restore to Incident Feed"
+            style={{
+              background: 'transparent',
+              border: '1px solid var(--border)',
+              color: 'var(--text2)',
+              fontSize: '0.6rem',
+              padding: '4px 8px',
+              borderRadius: '3px',
+              cursor: 'pointer',
+              textTransform: 'uppercase',
+              letterSpacing: '0.05em'
+            }}
+          >
+            Restore to Feed
+          </button>
         </div>
       ))}
     </div>
@@ -494,27 +508,73 @@ function SplashScreen() {
 export default function App() {
   const [appLoading, setAppLoading] = useState(true);
   const [tab, setTab] = useState("dashboard");          // "dashboard" | "history"
-  const [activeScenarios, setActiveScenarios] = useState(disasterScenarios);
+  const [activeScenarios, setActiveScenarios] = useState([]);
   const [history, setHistory] = useState([]);
   const [selected, setSelected] = useState(null);       // currently viewed scenario
-  const [seen, setSeen] = useState(new Set());          // IDs that have been clicked
+  const [seen, setSeen] = useState(new Set());          // local IDs that have been clicked (backup)
+
+  // Fetch data from backend
+  const fetchData = async () => {
+    try {
+      const [feedRes, histRes] = await Promise.all([
+        fetch(`${API_BASE}/incidents/feed`),
+        fetch(`${API_BASE}/incidents/history`)
+      ]);
+      const feedData = await feedRes.json();
+      const histData = await histRes.json();
+      setActiveScenarios(feedData);
+      setHistory(histData);
+    } catch (err) {
+      console.error("Error fetching incidents:", err);
+    }
+  };
 
   useEffect(() => {
+    fetchData();
     // Cinematic Intro Sequence - Overwhelming Duration
     const timer = setTimeout(() => setAppLoading(false), 7200);
     return () => clearTimeout(timer);
   }, []);
 
-  const handleSelect = (s) => {
+  const handleSelect = async (s) => {
     setSelected(s);
-    setSeen((prev) => new Set([...prev, s.id]));
+    if (s.is_new) {
+      try {
+        await fetch(`${API_BASE}/incidents/${s.id}/see`, { method: 'PATCH' });
+        // Update local state to remove badge immediately
+        setActiveScenarios(prev => prev.map(item =>
+          item.id === s.id ? { ...item, is_new: 0 } : item
+        ));
+      } catch (err) {
+        console.error("Error marking incident as seen:", err);
+      }
+    }
   };
 
-  const handleHandled = (scenario) => {
-    const resolved = { ...scenario, resolvedAt: new Date().toLocaleTimeString() };
-    setHistory((h) => [resolved, ...h]);
-    setActiveScenarios((list) => list.filter((s) => s.id !== scenario.id));
-    setSelected(null);
+  const handleHandled = async (scenario) => {
+    try {
+      const res = await fetch(`${API_BASE}/incidents/${scenario.id}/manage`, { method: 'PATCH' });
+      const { resolvedAt } = await res.json();
+
+      const resolved = { ...scenario, is_new: 0, status: 'history', resolved_at: resolvedAt };
+      setHistory((h) => [resolved, ...h]);
+      setActiveScenarios((list) => list.filter((s) => s.id !== scenario.id));
+      setSelected(null);
+    } catch (err) {
+      console.error("Error managing disaster:", err);
+    }
+  };
+
+  const handleRestore = async (scenario) => {
+    try {
+      await fetch(`${API_BASE}/incidents/${scenario.id}/restore`, { method: 'PATCH' });
+
+      const restored = { ...scenario, status: 'feed', resolved_at: null };
+      setActiveScenarios((prev) => [...prev, restored]);
+      setHistory((h) => h.filter((s) => s.id !== scenario.id));
+    } catch (err) {
+      console.error("Error restoring disaster:", err);
+    }
   };
 
   return (
@@ -560,7 +620,7 @@ export default function App() {
             <div className="col-header">
               Resolved Incidents
             </div>
-            <HistoryView items={history} />
+            <HistoryView items={history} onRestore={handleRestore} />
           </div>
         )}
 
@@ -579,7 +639,7 @@ export default function App() {
                   </div>
                 )}
                 {activeScenarios.map((s) => {
-                  const isNew = !seen.has(s.id);
+                  const isNew = s.is_new === 1;
                   const isSelected = selected?.id === s.id;
                   return (
                     <div
