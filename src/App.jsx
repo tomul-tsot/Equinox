@@ -6,14 +6,14 @@ import "./index.css";
 // ─── Ticker ───────────────────────────────────────────────────────────────────
 function Ticker() {
   const items = [
-    "● EQUINOX SYSTEM ONLINE",
+    "● INTELMAP SYSTEM ONLINE",
     "◈ GEMINI AI ENGINE ACTIVE",
     "▸ SATELLITE FEEDS: NOMINAL",
     "▸ IOT SENSOR NETWORK: 1,247 NODES ACTIVE",
     "◈ SIGNAL FUSION IN PROGRESS",
     "▸ RESPONSE TEAMS ON STANDBY",
     "● 24/7 MONITORING ACTIVE",
-    "◈ PRESS CTRL+A FOR AUTO-ANALYSIS",
+    "◈ MULTI-SOURCE INTELLIGENCE ACTIVE",
   ];
   const repeated = [...items, ...items];
   return (
@@ -122,7 +122,7 @@ export default function App() {
     setAnalysis(null);
     setError(null);
     try {
-      const result = await analyzeDisasterSignals(scenario.signals, scenario.name, scenario.id);
+      const result = await analyzeDisasterSignals(scenario.signals, scenario.name);
       setAnalysis(result);
     } catch (err) {
       console.error("Gemini error:", err);
@@ -181,7 +181,7 @@ export default function App() {
             <div style={{
               fontSize: "1.3rem", fontWeight: 800,
               color: "var(--cyan)", letterSpacing: "0.08em", lineHeight: 1.1,
-            }}>EQUINOX</div>
+            }}>INTELMAP</div>
             <div style={{ fontSize: "0.62rem", color: "var(--text-muted)", letterSpacing: "0.1em" }}>
               DISASTER OPERATIONS INTELLIGENCE SYSTEM
             </div>
@@ -314,7 +314,7 @@ export default function App() {
                 Select an incident feed
               </div>
               <div style={{ fontSize: "0.78rem" }}>
-                Choose a disaster scenario from the left panel to begin Gemini AI analysis
+                Choose a disaster scenario from the left panel to begin IntelMap AI analysis
               </div>
             </div>
           )}
@@ -350,20 +350,6 @@ export default function App() {
           {/* Analysis results */}
           {analysis && !loading && (
             <>
-              {/* Demo mode badge */}
-              {analysis._source === "demo" && (
-                <div style={{
-                  display: "flex", alignItems: "center", gap: "0.5rem",
-                  padding: "0.4rem 0.75rem",
-                  background: "rgba(251,191,36,0.06)",
-                  border: "1px solid rgba(251,191,36,0.25)",
-                  borderRadius: "6px",
-                  fontSize: "0.68rem", color: "var(--yellow)",
-                  letterSpacing: "0.08em",
-                }}>
-                  ◈ GEMINI DEMO MODE — Pre-seeded analysis (live API quota exceeded, rotate key to enable live)
-                </div>
-              )}
               {/* Row 1 — Threat + Resources + Population */}
               <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: "1rem" }}>
 

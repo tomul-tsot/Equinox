@@ -1,46 +1,38 @@
 import { GoogleGenerativeAI } from "@google/generative-ai";
-import { demoResponses } from "../data/demoResponses";
 
 const genAI = new GoogleGenerativeAI(import.meta.env.VITE_GEMINI_API_KEY);
 
 const MODEL_PRIORITY = [
+    "gemini-2.0-flash",
+    "gemini-2.0-flash-lite",
     "gemini-1.5-flash",
     "gemini-1.5-flash-latest",
     "gemini-1.5-pro",
-    "gemini-pro",
-    "gemini-2.0-flash",
-    "gemini-2.0-flash-lite",
 ];
 
-async function callGeminiWithFallback(prompt) {
+async function callGemini(prompt) {
     let lastError;
     for (const modelName of MODEL_PRIORITY) {
         try {
             const model = genAI.getGenerativeModel({ model: modelName });
             const result = await model.generateContent(prompt);
-            console.log(`✅ Gemini live — model: ${modelName}`);
+            console.log(`✅ IntelMap AI — model: ${modelName}`);
             return result.response.text();
         } catch (err) {
             console.warn(`⚠ Model ${modelName} failed:`, err.message?.slice(0, 100));
             lastError = err;
             const msg = err.message ?? "";
-            if (
-                !msg.includes("404") &&
-                !msg.includes("429") &&
-                !msg.includes("not found") &&
-                !msg.includes("quota") &&
-                !msg.includes("RESOURCE_EXHAUSTED")
-            ) {
-                throw err;
+            if (!msg.includes("404") && !msg.includes("not found")) {
+                throw err; // stop on quota/auth errors immediately
             }
         }
     }
     throw lastError;
 }
 
-export async function analyzeDisasterSignals(signals, scenarioName, scenarioId) {
+export async function analyzeDisasterSignals(signals, scenarioName) {
     const prompt = `
-You are EQUINOX — an AI disaster response coordinator.
+You are INTELMAP — an AI disaster response coordinator.
 Analyze the following real-time crisis signals for: ${scenarioName}
 
 Respond ONLY in this exact JSON format, no markdown, no extra text:
@@ -75,24 +67,12 @@ ${JSON.stringify(signals, null, 2)}
 Return ONLY valid JSON. No explanation. No markdown.
   `;
 
+    const text = await callGemini(prompt);
     try {
-        const text = await callGeminiWithFallback(prompt);
-        const parsed = (() => {
-            try {
-                return JSON.parse(text);
-            } catch {
-                const cleaned = text.replace(/```json|```/g, "").trim();
-                return JSON.parse(cleaned);
-            }
-        })();
-        return { ...parsed, _source: "live" };
-    } catch (err) {
-        // Live API failed — use pre-seeded demo response
-        console.warn("🔁 Live API unavailable — using pre-seeded Gemini response for demo");
-        if (scenarioId && demoResponses[scenarioId]) {
-            return { ...demoResponses[scenarioId], _source: "demo" };
-        }
-        throw err;
+        return JSON.parse(text);
+    } catch {
+        const cleaned = text.replace(/```json|```/g, "").trim();
+        return JSON.parse(cleaned);
     }
 }
 
@@ -104,7 +84,5 @@ export async function analyzeCustomSignal(customText, existingSignals) {
         location: "Field",
         timestamp: new Date().toLocaleTimeString(),
     };
-    const allSignals = [...existingSignals, newSignal];
-    // Custom signals always try live — no demo fallback (we don't know the input ahead of time)
-    return analyzeDisasterSignals(allSignals, "Live Field Update", null);
+    return analyzeDisasterSignals([...existingSignals, newSignal], "Live Field Update");
 }
