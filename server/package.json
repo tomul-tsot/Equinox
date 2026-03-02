@@ -1,0 +1,19 @@
+{
+    "name": "intelmap-server",
+    "version": "1.0.0",
+    "description": "INTELMAP Crisis Intelligence Backend — Node.js + Express + PostgreSQL",
+    "type": "module",
+    "main": "server.js",
+    "scripts": {
+        "start": "node server.js",
+        "dev": "node --watch server.js"
+    },
+    "dependencies": {
+        "@google/generative-ai": "^0.24.1",
+        "axios": "^1.7.2",
+        "cors": "^2.8.5",
+        "dotenv": "^16.4.5",
+        "express": "^4.19.2",
+        "pg": "^8.12.0"
+    }
+}
