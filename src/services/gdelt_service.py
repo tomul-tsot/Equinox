@@ -45,7 +45,7 @@ def fetch_latest_gdelt_events(limit=20):
         with zipfile.ZipFile(io.BytesIO(r.content)) as z:
             csv_filename = z.namelist()[0]
             with z.open(csv_filename) as f:
-                df = pd.read_csv(f, sep='\t', header=None, names=GDELT_COLUMNS)
+                df = pd.read_csv(f, sep='\t', header=None, names=GDELT_COLUMNS, encoding='utf-8')
         
         # Convert EventCode to string
         df['EventCode'] = df['EventCode'].astype(str).str.zfill(4)
