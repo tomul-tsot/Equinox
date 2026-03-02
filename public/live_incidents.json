@@ -1,0 +1,161 @@
+[
+  {
+    "id": "1291973648",
+    "name": "Live: Ireland",
+    "emoji": "🚨",
+    "location": "Ireland",
+    "lat": 53.0,
+    "lng": -8.0,
+    "color": "var(--red)",
+    "signals": [
+      {
+        "source": "GDELT",
+        "type": "event_record",
+        "value": "Event 0046 detected at Ireland",
+        "timestamp": "20260302211500"
+      }
+    ],
+    "analysis": {
+      "threat_level": "LOW",
+      "affected_zones": [
+        "Ireland"
+      ],
+      "primary_threat": "No specific news reports available to indicate a significant threat.",
+      "immediate_actions": [
+        {
+          "action": "Monitor news and updates for potential developments",
+          "sector": "Ireland",
+          "priority": 1,
+          "time_sensitive": false
+        }
+      ],
+      "reasoning": "Given the lack of specific news reports and only generalized information available, the situation is assessed as LOW due to insufficient evidence to suggest a higher threat level.",
+      "resource_allocation": {
+        "rescue_units": 0,
+        "medical_teams": 0,
+        "supply_drops": 0,
+        "evacuation_buses": 0
+      },
+      "signal_credibility": {
+        "high": 0,
+        "medium": 0,
+        "low": 1
+      },
+      "estimated_affected_population": "Unknown",
+      "next_6_hours_prediction": "The situation is expected to remain stable unless new information indicates otherwise."
+    },
+    "isLive": true
+  },
+  {
+    "id": "1291974066",
+    "name": "Live: Northern Ireland, Craigavon, United Kingdom",
+    "emoji": "🚨",
+    "location": "Northern Ireland, Craigavon, United Kingdom",
+    "lat": 54.5,
+    "lng": -6.5,
+    "color": "var(--red)",
+    "signals": [
+      {
+        "source": "GDELT",
+        "type": "event_record",
+        "value": "Event 0010 detected at Northern Ireland, Craigavon, United Kingdom",
+        "timestamp": "20260302211500"
+      }
+    ],
+    "analysis": {
+      "threat_level": "LOW",
+      "affected_zones": [
+        "Craigavon"
+      ],
+      "primary_threat": "No specific details available to indicate a significant threat.",
+      "immediate_actions": [
+        {
+          "action": "Monitor the situation for updates",
+          "sector": "Craigavon",
+          "priority": 1,
+          "time_sensitive": false
+        }
+      ],
+      "reasoning": "Given the lack of specific news reports and only generalized information, it's prudent to classify the situation as LOW until more concrete details emerge.",
+      "resource_allocation": {
+        "rescue_units": 0,
+        "medical_teams": 0,
+        "supply_drops": 0,
+        "evacuation_buses": 0
+      },
+      "signal_credibility": {
+        "high": 0,
+        "medium": 0,
+        "low": 1
+      },
+      "estimated_affected_population": "Unknown",
+      "next_6_hours_prediction": "The situation is expected to remain stable unless new information indicates otherwise."
+    },
+    "isLive": true
+  },
+  {
+    "id": "1291973731",
+    "name": "Live: Northern Ireland, Craigavon, United Kingdom",
+    "emoji": "🚨",
+    "location": "Northern Ireland, Craigavon, United Kingdom",
+    "lat": 54.5,
+    "lng": -6.5,
+    "color": "var(--red)",
+    "signals": [
+      {
+        "source": "GDELT",
+        "type": "event_record",
+        "value": "Event 0010 detected at Northern Ireland, Craigavon, United Kingdom",
+        "timestamp": "20260302211500"
+      },
+      {
+        "source": "News",
+        "type": "news_clip",
+        "value": "Craigavon - Armagh I",
+        "timestamp": "Just now"
+      },
+      {
+        "source": "News",
+        "type": "news_clip",
+        "value": "NI weather: Clean-up after heavy rainfall and flash flooding - BBC",
+        "timestamp": "Just now"
+      },
+      {
+        "source": "News",
+        "type": "news_clip",
+        "value": "RECAP as Craigavon security alerts end with residents returned home",
+        "timestamp": "Just now"
+      }
+    ],
+    "analysis": {
+      "threat_level": "LOW",
+      "affected_zones": [
+        "Craigavon"
+      ],
+      "primary_threat": "Generalized reports of security alerts and flash flooding without confirmed casualties or significant damage.",
+      "immediate_actions": [
+        {
+          "action": "Monitor situation for updates",
+          "sector": "Craigavon",
+          "priority": 1,
+          "time_sensitive": false
+        }
+      ],
+      "reasoning": "The news snippets do not provide concrete evidence of significant damage, casualties, or major disruptions, leading to a LOW threat level assessment.",
+      "resource_allocation": {
+        "rescue_units": 0,
+        "medical_teams": 0,
+        "supply_drops": 0,
+        "evacuation_buses": 0
+      },
+      "signal_credibility": {
+        "high": 0,
+        "medium": 0,
+        "low": 1
+      },
+      "estimated_affected_population": "Unknown",
+      "next_6_hours_prediction": "The situation is expected to remain stable with potential for further security alerts or minor flooding."
+    },
+    "isLive": true
+  }
+]

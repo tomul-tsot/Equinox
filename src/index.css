@@ -9,21 +9,23 @@
 }
 
 :root {
-  --bg: #0a0f1a;
-  --bg2: #0f1520;
-  --bg3: #141c2b;
-  --border: #1e2a3a;
-  --border2: #2a3a52;
-  --text: #e8edf5;
-  --text2: #7a8fa8;
-  --text3: #374c63;
+  --bg: #080c14;
+  --bg2: #0c121d;
+  --bg3: #121a29;
+  --border: #1a2433;
+  --border2: #253447;
+  --text: #e2e8f0;
+  --text2: #94a3b8;
+  --text3: #475569;
   --cyan: #22d3ee;
-  --green: #22c55e;
+  --cyan-muted: #10b981;
+  --green: #10b981;
   --red: #ef4444;
-  --orange: #f97316;
-  --yellow: #fbbf24;
+  --orange: #f59e0b;
+  --yellow: #facc15;
   --purple: #a855f7;
   --blue: #3b82f6;
+  --radius: 8px;
 }
 
 html,
@@ -37,7 +39,7 @@ body,
 }
 
 ::-webkit-scrollbar {
-  width: 4px;
+  width: 5px;
 }
 
 ::-webkit-scrollbar-track {
@@ -46,7 +48,207 @@ body,
 
 ::-webkit-scrollbar-thumb {
   background: var(--border2);
-  border-radius: 2px;
+  border-radius: 10px;
+}
+
+.mono {
+  font-family: 'JetBrains Mono', monospace;
+}
+
+/* ── Splash Screen (Universal Style) ── */
+.splash {
+  position: fixed;
+  inset: 0;
+  background: radial-gradient(circle at center, #020617 0%, #080c14 100%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  overflow: hidden;
+  animation: fadeOut 0.8s ease-in forwards;
+  animation-delay: 5.5s;
+}
+
+.intro-container {
+  position: relative;
+  width: 600px;
+  height: 600px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  perspective: 1500px;
+}
+
+.flare {
+  position: absolute;
+  width: 450px;
+  height: 450px;
+  background: radial-gradient(circle, rgba(34, 211, 238, 0.12) 0%, transparent 70%);
+  border-radius: 50%;
+  animation: flare-pulse 4s ease-in-out infinite;
+}
+
+.neural-globe {
+  position: relative;
+  width: 320px;
+  height: 320px;
+  z-index: 2;
+  filter: drop-shadow(0 0 30px rgba(34, 211, 238, 0.3));
+  animation: globe-float 6s ease-in-out infinite;
+}
+
+.universal-brand {
+  position: absolute;
+  font-size: 3.5rem;
+  font-weight: 800;
+  color: #fff;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  pointer-events: none;
+  z-index: 3;
+  /* Cyber Neon Glow */
+  text-shadow:
+    0 0 5px #fff,
+    0 0 15px var(--cyan),
+    0 0 30px var(--cyan);
+  animation: universal-orbit 6s cubic-bezier(0.15, 0, 0.15, 1) forwards;
+}
+
+.splash-status-container {
+  position: absolute;
+  bottom: 60px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+
+.splash-status {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.7rem;
+  color: var(--cyan);
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  opacity: 0.6;
+  text-align: center;
+}
+
+.splash-progress-container {
+  width: 200px;
+  height: 1px;
+  background: rgba(34, 211, 238, 0.1);
+  overflow: hidden;
+}
+
+.splash-progress-bar {
+  height: 100%;
+  background: var(--cyan);
+  width: 0%;
+  animation: progress 5.5s linear forwards;
+}
+
+/* Spark animation for neural nodes */
+.spark {
+  animation: spark-glow 1.5s ease-in-out infinite;
+}
+
+@keyframes spark-glow {
+
+  0%,
+  100% {
+    fill: var(--cyan);
+    filter: blur(0px);
+    opacity: 0.8;
+  }
+
+  50% {
+    fill: #fff;
+    filter: blur(2px);
+    opacity: 1;
+    transform: scale(1.5);
+  }
+}
+
+@keyframes progress {
+  from {
+    width: 0%;
+  }
+
+  to {
+    width: 100%;
+  }
+}
+
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+  }
+
+  to {
+    opacity: 0;
+    visibility: hidden;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes flare-pulse {
+
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: 0.5;
+  }
+
+  50% {
+    transform: scale(1.15);
+    opacity: 0.8;
+  }
+}
+
+@keyframes globe-float {
+
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+@keyframes universal-orbit {
+  0% {
+    transform: rotateY(-90deg) translateZ(400px) scale(0.5);
+    opacity: 0;
+  }
+
+  20% {
+    opacity: 0.2;
+  }
+
+  50% {
+    transform: rotateY(0deg) translateZ(280px) scale(1);
+    opacity: 1;
+    letter-spacing: 0.4em;
+  }
+
+  100% {
+    transform: rotateY(0deg) translateZ(280px) scale(1);
+    opacity: 1;
+    letter-spacing: 0.4em;
+  }
 }
 
 /* ── App shell ── */
@@ -55,6 +257,7 @@ body,
   flex-direction: column;
   height: 100vh;
   overflow: hidden;
+  animation: fadeIn 0.6s ease-out;
 }
 
 /* ── Top bar ── */
@@ -276,10 +479,11 @@ body,
 
 /* ── Cards ── */
 .acard {
-  background: var(--bg3);
+  background: var(--bg2);
   border: 1px solid var(--border);
-  border-radius: 8px;
-  padding: 1rem;
+  border-radius: var(--radius);
+  padding: 1.25rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
 }
 
 .acard-label {
@@ -292,10 +496,23 @@ body,
 }
 
 .acard-gemini {
-  background: rgba(34, 211, 238, 0.03);
-  border: 1px solid rgba(34, 211, 238, 0.15);
-  border-radius: 8px;
-  padding: 1rem;
+  background: rgba(34, 211, 238, 0.02);
+  border: 1px solid rgba(34, 211, 238, 0.12);
+  border-radius: var(--radius);
+  padding: 1.25rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.acard-gemini::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 2px;
+  height: 100%;
+  background: var(--cyan);
+  opacity: 0.5;
 }
 
 .gemini-label {
@@ -331,22 +548,22 @@ body,
 }
 
 .reasoning-text {
-  font-size: 0.8rem;
-  color: #a0b4cc;
-  line-height: 1.7;
+  font-size: 0.88rem;
+  color: var(--text);
+  line-height: 1.6;
+  padding-left: 1rem;
   border-left: 2px solid var(--cyan);
-  padding-left: 0.75rem;
 }
 
 .prediction-block {
-  margin-top: 0.75rem;
-  padding: 0.65rem 0.75rem;
-  background: rgba(239, 68, 68, 0.05);
-  border: 1px solid rgba(239, 68, 68, 0.2);
-  border-radius: 6px;
-  font-size: 0.75rem;
-  color: #fca5a5;
-  line-height: 1.6;
+  margin-top: 1rem;
+  padding: 1rem;
+  background: rgba(239, 68, 68, 0.03);
+  border: 1px solid rgba(239, 68, 68, 0.15);
+  border-radius: var(--radius);
+  font-size: 0.82rem;
+  color: #f87171;
+  line-height: 1.5;
 }
 
 .prediction-label {

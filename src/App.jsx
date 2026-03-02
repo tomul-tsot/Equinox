@@ -312,6 +312,47 @@ export default function App() {
   const [history, setHistory] = useState([]);
   const [selected, setSelected] = useState(null);       // currently viewed scenario
   const [seen, setSeen] = useState(new Set());          // IDs that have been clicked
+  const [searchQuery, setSearchQuery] = useState("");
+  const [isSearching, setIsSearching] = useState(false);
+
+  // Load live incidents on mount
+  useEffect(() => {
+    fetch('/live_incidents.json')
+      .then(res => res.json())
+      .then(data => {
+        if (Array.isArray(data) && data.length > 0) {
+          setActiveScenarios(prev => {
+            // Merge live with mock (if any) or just replace
+            return [...data];
+          });
+        }
+      })
+      .catch(err => console.error("No live incidents yet."));
+  }, []);
+
+  const handleSearch = async (e) => {
+    e.preventDefault();
+    if (!searchQuery.trim()) return;
+
+    setIsSearching(true);
+    try {
+      const res = await fetch('http://localhost:5000/api/search', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ city: searchQuery })
+      });
+      const data = await res.json();
+      if (Array.isArray(data)) {
+        setActiveScenarios(data);
+        if (data.length > 0) handleSelect(data[0]);
+      }
+    } catch (err) {
+      console.error("Search failed:", err);
+    } finally {
+      setIsSearching(false);
+      setSearchQuery("");
+    }
+  };
 
   const handleSelect = (s) => {
     setSelected(s);
@@ -358,6 +399,11 @@ export default function App() {
           </button>
         </nav>
 
+        <div className="topbar-helpline">
+          <span className="helpline-label">EMERGENCY HELPLINE:</span>
+          <span className="helpline-number">112 / 108</span>
+        </div>
+
         <Clock />
       </div>
 
@@ -377,7 +423,25 @@ export default function App() {
 
           {/* ── Column 1: Incident Feed ── */}
           <div className="col">
-            <div className="col-header">Incident Feed</div>
+            <div className="col-header" style={{ display: 'flex', flexDirection: 'column', gap: '8px', height: 'auto', padding: '10px' }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', width: '100%' }}>
+                <span>Incident Feed</span>
+                {isSearching && <span style={{ color: 'var(--cyan)', fontSize: '0.6rem' }}>● SCANNING...</span>}
+              </div>
+
+              <form onSubmit={handleSearch} className="search-bar">
+                <input
+                  type="text"
+                  placeholder="Analyze City (e.g. Mumbai)..."
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  disabled={isSearching}
+                />
+                <button type="submit" disabled={isSearching}>
+                  {isSearching ? "..." : "SCAN"}
+                </button>
+              </form>
+            </div>
             <div className="col-body">
               {activeScenarios.length === 0 && (
                 <div style={{ padding: "2rem 1rem", textAlign: "center", color: "var(--text3)", fontSize: "0.75rem" }}>
@@ -395,13 +459,15 @@ export default function App() {
                     onClick={() => handleSelect(s)}
                   >
                     {isNew && <div className="new-badge">● New</div>}
+                    {s.isLive && (
+                      <div className="new-badge" style={{ background: "rgba(239,68,68,0.15)", color: "var(--red)", border: "1px solid rgba(239,68,68,0.3)", marginLeft: isNew ? "45px" : "0" }}>
+                        ● LIVE
+                      </div>
+                    )}
                     <div className="incident-name" style={{ color: isSelected ? s.color : "var(--text)" }}>
                       {s.emoji} {s.name}
                     </div>
                     <div className="incident-meta">{s.location}</div>
-                    <div className="incident-meta" style={{ marginTop: "3px" }}>
-                      {s.signals.length} signals
-                    </div>
                   </div>
                 );
               })}

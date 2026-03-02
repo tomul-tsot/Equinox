@@ -1,1 +1,75 @@
 /* Keep this file for any component-level overrides */
+
+/* Search bar styling */
+.search-bar {
+    display: flex;
+    gap: 8px;
+    padding: 8px 12px;
+    background: var(--bg3);
+    border-bottom: 1px solid var(--border);
+}
+
+.search-bar input {
+    flex: 1;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 6px 10px;
+    font-size: 0.75rem;
+    color: var(--text);
+    outline: none;
+    transition: border-color 0.2s;
+}
+
+.search-bar input:focus {
+    border-color: var(--cyan);
+}
+
+.search-bar button {
+    background: rgba(34, 211, 238, 0.1);
+    border: 1px solid rgba(34, 211, 238, 0.3);
+    border-radius: 6px;
+    color: var(--cyan);
+    padding: 0 10px;
+    cursor: pointer;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.search-bar button:hover:not(:disabled) {
+    background: rgba(34, 211, 238, 0.2);
+    border-color: var(--cyan);
+}
+
+.search-bar button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+/* Helpline Styling */
+.topbar-helpline {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 2px 12px;
+    background: rgba(239, 68, 68, 0.1);
+    border: 1px solid rgba(239, 68, 68, 0.3);
+    border-radius: 4px;
+    margin-right: 15px;
+}
+
+.helpline-label {
+    font-size: 0.6rem;
+    font-weight: 700;
+    color: var(--red);
+    letter-spacing: 0.05em;
+}
+
+.helpline-number {
+    font-size: 0.85rem;
+    font-weight: 800;
+    color: #fff;
+    text-shadow: 0 0 10px rgba(239, 68, 68, 0.5);
+}
