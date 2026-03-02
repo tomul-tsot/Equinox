@@ -305,13 +305,52 @@ function HistoryView({ items }) {
   );
 }
 
+// ─── SplashScreen ─────────────────────────────────────────────────────────────
+function SplashScreen() {
+  const [status, setStatus] = useState("Initializing Neural Engine...");
+  useEffect(() => {
+    const statuses = [
+      "Synchronizing Satellite Feeds...",
+      "Loading Crisis Models...",
+      "Connecting to Gemini Fusion Core...",
+      "Readying Operational Dashboard..."
+    ];
+    let i = 0;
+    const id = setInterval(() => {
+      setStatus(statuses[i]);
+      i = (i + 1) % statuses.length;
+    }, 500);
+    return () => clearInterval(id);
+  }, []);
+
+  return (
+    <div className="splash">
+      <div className="splash-logo">
+        <div className="topbar-brand-icon" style={{ width: 42, height: 42, fontSize: '1.2rem' }}>⬡</div>
+        INTELMAP
+      </div>
+      <div className="splash-progress-container">
+        <div className="splash-progress-bar" />
+      </div>
+      <div className="splash-status">{status}</div>
+    </div>
+  );
+}
+
 // ─── Main App ─────────────────────────────────────────────────────────────────
 export default function App() {
+  const [appLoading, setAppLoading] = useState(true);
   const [tab, setTab] = useState("dashboard");          // "dashboard" | "history"
   const [activeScenarios, setActiveScenarios] = useState(disasterScenarios);
   const [history, setHistory] = useState([]);
   const [selected, setSelected] = useState(null);       // currently viewed scenario
   const [seen, setSeen] = useState(new Set());          // IDs that have been clicked
+
+  useEffect(() => {
+    // Initial boot sequence
+    const timer = setTimeout(() => setAppLoading(false), 2500);
+    return () => clearTimeout(timer);
+  }, []);
 
   const handleSelect = (s) => {
     setSelected(s);
@@ -326,112 +365,114 @@ export default function App() {
   };
 
   return (
-    <div className="app">
-
-      {/* ── Top bar ── */}
-      <div className="topbar">
-        <div className="topbar-brand">
-          <div className="topbar-brand-icon">⬡</div>
-          INTELMAP
-          <span style={{ fontSize: "0.65rem", color: "var(--text3)", fontWeight: 400, letterSpacing: "0.04em" }}>
-            Crisis Intelligence
-          </span>
-        </div>
-
-        <nav className="topbar-tabs">
-          <button
-            className={`tab ${tab === "dashboard" ? "active" : ""}`}
-            onClick={() => setTab("dashboard")}
-          >
-            Main Dashboard
-          </button>
-          <button
-            className={`tab ${tab === "history" ? "active" : ""}`}
-            onClick={() => setTab("history")}
-          >
-            History
-            {history.length > 0 && (
-              <span style={{ marginLeft: "6px", background: "rgba(34,197,94,0.15)", border: "1px solid rgba(34,197,94,0.3)", color: "var(--green)", borderRadius: "10px", padding: "0 5px", fontSize: "0.6rem", fontWeight: 700 }}>
-                {history.length}
-              </span>
-            )}
-          </button>
-        </nav>
-
-        <Clock />
-      </div>
-
-      {/* ── History tab ── */}
-      {tab === "history" && (
-        <div style={{ flex: 1, overflowY: "auto" }}>
-          <div style={{ padding: "0.75rem 1rem", borderBottom: "1px solid var(--border)", fontSize: "0.65rem", fontWeight: 700, letterSpacing: "0.12em", textTransform: "uppercase", color: "var(--text3)" }}>
-            Resolved Incidents
-          </div>
-          <HistoryView items={history} />
-        </div>
-      )}
-
-      {/* ── Dashboard tab ── */}
-      {tab === "dashboard" && (
-        <div className="main">
-
-          {/* ── Column 1: Incident Feed ── */}
-          <div className="col">
-            <div className="col-header">Incident Feed</div>
-            <div className="col-body">
-              {activeScenarios.length === 0 && (
-                <div style={{ padding: "2rem 1rem", textAlign: "center", color: "var(--text3)", fontSize: "0.75rem" }}>
-                  <div style={{ fontSize: "1.5rem", marginBottom: "0.5rem", opacity: 0.3 }}>✓</div>
-                  All incidents handled
-                </div>
-              )}
-              {activeScenarios.map((s) => {
-                const isNew = !seen.has(s.id);
-                const isSelected = selected?.id === s.id;
-                return (
-                  <div
-                    key={s.id}
-                    className={`incident-card ${isSelected ? "selected" : ""}`}
-                    onClick={() => handleSelect(s)}
-                  >
-                    {isNew && <div className="new-badge">● New</div>}
-                    <div className="incident-name" style={{ color: isSelected ? s.color : "var(--text)" }}>
-                      {s.emoji} {s.name}
-                    </div>
-                    <div className="incident-meta">{s.location}</div>
-                    <div className="incident-meta" style={{ marginTop: "3px" }}>
-                      {s.signals.length} signals
-                    </div>
-                  </div>
-                );
-              })}
-            </div>
+    <>
+      {appLoading && <SplashScreen />}
+      <div className="app">
+        {/* ── Top bar ── */}
+        <div className="topbar">
+          <div className="topbar-brand">
+            <div className="topbar-brand-icon">⬡</div>
+            INTELMAP
+            <span style={{ fontSize: "0.6rem", color: "var(--text3)", fontWeight: 400, letterSpacing: "0.04em" }} className="mono">
+              v2.0 PRO
+            </span>
           </div>
 
-          {/* ── Column 2: AI Analysis ── */}
-          <div className="col">
-            <div className="col-header">
-              AI Analysis
-              {selected && (
-                <span style={{ marginLeft: "0.5rem", opacity: 0.5, fontWeight: 400, letterSpacing: 0, textTransform: "none", fontSize: "0.65rem" }}>
-                  — {selected.name}
+          <nav className="topbar-tabs">
+            <button
+              className={`tab ${tab === "dashboard" ? "active" : ""}`}
+              onClick={() => setTab("dashboard")}
+            >
+              Main Dashboard
+            </button>
+            <button
+              className={`tab ${tab === "history" ? "active" : ""}`}
+              onClick={() => setTab("history")}
+            >
+              History
+              {history.length > 0 && (
+                <span style={{ marginLeft: "6px", background: "rgba(34,197,94,0.15)", border: "1px solid rgba(34,197,94,0.3)", color: "var(--green)", borderRadius: "10px", padding: "0 5px", fontSize: "0.6rem", fontWeight: 700 }}>
+                  {history.length}
                 </span>
               )}
-            </div>
-            <AnalysisPanel
-              scenario={selected}
-              onHandled={handleHandled}
-            />
-          </div>
+            </button>
+          </nav>
 
-          {/* ── Column 3: Map ── */}
-          <div className="col" style={{ borderRight: "none" }}>
-            <div className="col-header">Map Location</div>
-            <MapPanel scenario={selected} />
-          </div>
-
+          <Clock />
         </div>
-      )}
-    </div>
+
+        {/* ── History tab ── */}
+        {tab === "history" && (
+          <div style={{ flex: 1, overflowY: "auto" }}>
+            <div className="col-header">
+              Resolved Incidents
+            </div>
+            <HistoryView items={history} />
+          </div>
+        )}
+
+        {/* ── Dashboard tab ── */}
+        {tab === "dashboard" && (
+          <div className="main">
+
+            {/* ── Column 1: Incident Feed ── */}
+            <div className="col">
+              <div className="col-header">Incident Feed</div>
+              <div className="col-body">
+                {activeScenarios.length === 0 && (
+                  <div style={{ padding: "2rem 1rem", textAlign: "center", color: "var(--text3)", fontSize: "0.75rem" }}>
+                    <div style={{ fontSize: "1.5rem", marginBottom: "0.5rem", opacity: 0.3 }}>✓</div>
+                    All incidents handled
+                  </div>
+                )}
+                {activeScenarios.map((s) => {
+                  const isNew = !seen.has(s.id);
+                  const isSelected = selected?.id === s.id;
+                  return (
+                    <div
+                      key={s.id}
+                      className={`incident-card ${isSelected ? "selected" : ""}`}
+                      onClick={() => handleSelect(s)}
+                    >
+                      {isNew && <div className="new-badge">● New</div>}
+                      <div className="incident-name" style={{ color: isSelected ? s.color : "var(--text)" }}>
+                        {s.emoji} {s.name}
+                      </div>
+                      <div className="incident-meta">{s.location}</div>
+                      <div className="incident-meta mono" style={{ marginTop: "3px", fontSize: '0.6rem', opacity: 0.6 }}>
+                        {s.signals.length} Signals Captured
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+
+            {/* ── Column 2: AI Analysis ── */}
+            <div className="col">
+              <div className="col-header">
+                AI Analysis
+                {selected && (
+                  <span style={{ marginLeft: "0.5rem", opacity: 0.5, fontWeight: 400, letterSpacing: 0, textTransform: "none", fontSize: "0.65rem" }} className="mono">
+                    [{selected.name}]
+                  </span>
+                )}
+              </div>
+              <AnalysisPanel
+                scenario={selected}
+                onHandled={handleHandled}
+              />
+            </div>
+
+            {/* ── Column 3: Map ── */}
+            <div className="col" style={{ borderRight: "none" }}>
+              <div className="col-header">Map Location</div>
+              <MapPanel scenario={selected} />
+            </div>
+
+          </div>
+        )}
+      </div>
+    </>
   );
 }
