@@ -1,5 +1,863 @@
 [
   {
+    "id": "1292016529",
+    "name": "Live: South Carolina, United States",
+    "emoji": "🚨",
+    "location": "South Carolina, United States",
+    "lat": 33.8191,
+    "lng": -80.9066,
+    "color": "var(--red)",
+    "signals": [
+      {
+        "source": "GDELT",
+        "type": "event_record",
+        "value": "Event 0060 detected at South Carolina, United States",
+        "timestamp": "20260303014500"
+      }
+    ],
+    "analysis": {
+      "threat_level": "LOW",
+      "affected_zones": [
+        "South Carolina"
+      ],
+      "primary_threat": "Uncorroborated reports of potential disruptions in South Carolina.",
+      "immediate_actions": [
+        {
+          "action": "Monitor local news for updates",
+          "sector": "South Carolina",
+          "priority": 1,
+          "time_sensitive": false
+        }
+      ],
+      "reasoning": "Sparse data hints at minor anomalies in South Carolina, warranting cautious observation.",
+      "resource_allocation": {
+        "rescue_units": 0,
+        "medical_teams": 0,
+        "supply_drops": 0,
+        "evacuation_buses": 0
+      },
+      "signal_credibility": {
+        "high": 0,
+        "medium": 0,
+        "low": 1
+      },
+      "estimated_affected_population": "Unknown",
+      "next_6_hours_prediction": "Stable conditions expected"
+    },
+    "isLive": true
+  },
+  {
+    "id": "FOCUS_RAJKOT_1772501849",
+    "name": "Live: Rajkot",
+    "emoji": "🚨",
+    "location": "Rajkot",
+    "lat": 22.3053263,
+    "lng": 70.8028377,
+    "color": "var(--red)",
+    "signals": [
+      {
+        "source": "GDELT",
+        "type": "event_record",
+        "value": "Event FOCUS detected at Rajkot",
+        "timestamp": "1772501851"
+      }
+    ],
+    "analysis": {
+      "threat_level": "LOW",
+      "affected_zones": [
+        "Rajkot City"
+      ],
+      "primary_threat": "Uncorroborated reports of potential disruptions in Rajkot.",
+      "immediate_actions": [
+        {
+          "action": "Gather more information",
+          "sector": "Rajkot",
+          "priority": 1,
+          "time_sensitive": false
+        }
+      ],
+      "reasoning": "Sparse data hints at minor, unconfirmed disturbances in Rajkot.",
+      "resource_allocation": {
+        "rescue_units": 0,
+        "medical_teams": 0,
+        "supply_drops": 0,
+        "evacuation_buses": 0
+      },
+      "signal_credibility": {
+        "high": 0,
+        "medium": 0,
+        "low": 1
+      },
+      "estimated_affected_population": "Unknown",
+      "next_6_hours_prediction": "Stable situation expected"
+    },
+    "isLive": true
+  },
+  {
+    "id": "1292014889",
+    "name": "Live: Gaza, Israel (general), Israel",
+    "emoji": "🚨",
+    "location": "Gaza, Israel (general), Israel",
+    "lat": 31.4167,
+    "lng": 34.3333,
+    "color": "var(--red)",
+    "signals": [
+      {
+        "source": "GDELT",
+        "type": "event_record",
+        "value": "Event 0042 detected at Gaza, Israel (general), Israel",
+        "timestamp": "20260303013000"
+      }
+    ],
+    "analysis": {
+      "threat_level": "LOW",
+      "affected_zones": [
+        "Gaza"
+      ],
+      "primary_threat": "Generalized reports of unspecified disruptions in Gaza, Israel.",
+      "immediate_actions": [
+        {
+          "action": "Monitor situation for updates",
+          "sector": "Gaza",
+          "priority": 1,
+          "time_sensitive": false
+        }
+      ],
+      "reasoning": "Data indicates vague unrest in Gaza, lacking concrete details.",
+      "resource_allocation": {
+        "rescue_units": 0,
+        "medical_teams": 0,
+        "supply_drops": 0,
+        "evacuation_buses": 0
+      },
+      "signal_credibility": {
+        "high": 0,
+        "medium": 0,
+        "low": 1
+      },
+      "estimated_affected_population": "Unknown",
+      "next_6_hours_prediction": "Stable, with potential for increased clarity on situation."
+    },
+    "isLive": true
+  },
+  {
+    "id": "1292014880",
+    "name": "Live: Iran",
+    "emoji": "🚨",
+    "location": "Iran",
+    "lat": 32.0,
+    "lng": 53.0,
+    "color": "var(--red)",
+    "signals": [
+      {
+        "source": "GDELT",
+        "type": "event_record",
+        "value": "Event 0040 detected at Iran",
+        "timestamp": "20260303013000"
+      }
+    ],
+    "analysis": {
+      "threat_level": "LOW",
+      "affected_zones": [
+        "Iran"
+      ],
+      "primary_threat": "Uncorroborated reports of potential disruptions in Iran.",
+      "immediate_actions": [
+        {
+          "action": "Gather more information",
+          "sector": "Iran",
+          "priority": 1,
+          "time_sensitive": false
+        }
+      ],
+      "reasoning": "Sparse data hints at minor unrest in Iran's rural areas.",
+      "resource_allocation": {
+        "rescue_units": 0,
+        "medical_teams": 0,
+        "supply_drops": 0,
+        "evacuation_buses": 0
+      },
+      "signal_credibility": {
+        "high": 0,
+        "medium": 0,
+        "low": 1
+      },
+      "estimated_affected_population": "Unknown",
+      "next_6_hours_prediction": "Stable with potential for increased reporting."
+    },
+    "isLive": true
+  },
+  {
+    "id": "1292014673",
+    "name": "Live: Connecticut, United States",
+    "emoji": "🚨",
+    "location": "Connecticut, United States",
+    "lat": 41.5834,
+    "lng": -72.7622,
+    "color": "var(--red)",
+    "signals": [
+      {
+        "source": "GDELT",
+        "type": "event_record",
+        "value": "Event 0190 detected at Connecticut, United States",
+        "timestamp": "20260303013000"
+      }
+    ],
+    "analysis": {
+      "threat_level": "LOW",
+      "affected_zones": [
+        "Connecticut"
+      ],
+      "primary_threat": "Uncorroborated reports of potential disruptions in Connecticut.",
+      "immediate_actions": [
+        {
+          "action": "Monitor local news for updates",
+          "sector": "Connecticut",
+          "priority": 1,
+          "time_sensitive": false
+        }
+      ],
+      "reasoning": "Sparse data hints at minor, unconfirmed disturbances in Connecticut.",
+      "resource_allocation": {
+        "rescue_units": 0,
+        "medical_teams": 0,
+        "supply_drops": 0,
+        "evacuation_buses": 0
+      },
+      "signal_credibility": {
+        "high": 0,
+        "medium": 0,
+        "low": 1
+      },
+      "estimated_affected_population": "Unknown",
+      "next_6_hours_prediction": "Stable situation expected."
+    },
+    "isLive": true
+  },
+  {
+    "id": "1292012757",
+    "name": "Live: Tehran, Tehran, Iran",
+    "emoji": "🚨",
+    "location": "Tehran, Tehran, Iran",
+    "lat": 35.75,
+    "lng": 51.5148,
+    "color": "var(--red)",
+    "signals": [
+      {
+        "source": "GDELT",
+        "type": "event_record",
+        "value": "Event 0030 detected at Tehran, Tehran, Iran",
+        "timestamp": "20260303011500"
+      }
+    ],
+    "analysis": {
+      "threat_level": "LOW",
+      "affected_zones": [
+        "Tehran City Center"
+      ],
+      "primary_threat": "Unspecified incident with unclear consequences.",
+      "immediate_actions": [
+        {
+          "action": "Gather more information",
+          "sector": "Tehran",
+          "priority": 1,
+          "time_sensitive": false
+        }
+      ],
+      "reasoning": "Data indicates a potential anomaly in Tehran, warranting further investigation.",
+      "resource_allocation": {
+        "rescue_units": 0,
+        "medical_teams": 0,
+        "supply_drops": 0,
+        "evacuation_buses": 0
+      },
+      "signal_credibility": {
+        "high": 0,
+        "medium": 0,
+        "low": 1
+      },
+      "estimated_affected_population": "Unknown",
+      "next_6_hours_prediction": "Stable situation expected."
+    },
+    "isLive": true
+  },
+  {
+    "id": "1292011886",
+    "name": "Live: Mexico City, Distrito Federal, Mexico",
+    "emoji": "🚨",
+    "location": "Mexico City, Distrito Federal, Mexico",
+    "lat": 19.4342,
+    "lng": -99.1386,
+    "color": "var(--red)",
+    "signals": [
+      {
+        "source": "GDELT",
+        "type": "event_record",
+        "value": "Event 0042 detected at Mexico City, Distrito Federal, Mexico",
+        "timestamp": "20260303011500"
+      }
+    ],
+    "analysis": {
+      "threat_level": "LOW",
+      "affected_zones": [
+        "Distrito Federal"
+      ],
+      "primary_threat": "Uncorroborated reports of a potential incident in Mexico City.",
+      "immediate_actions": [
+        {
+          "action": "Gather more information",
+          "sector": "Mexico City",
+          "priority": 1,
+          "time_sensitive": false
+        }
+      ],
+      "reasoning": "Sparse data hints at a possible anomaly in Mexico City's usual rhythm.",
+      "resource_allocation": {
+        "rescue_units": 0,
+        "medical_teams": 0,
+        "supply_drops": 0,
+        "evacuation_buses": 0
+      },
+      "signal_credibility": {
+        "high": 0,
+        "medium": 0,
+        "low": 1
+      },
+      "estimated_affected_population": "Unknown",
+      "next_6_hours_prediction": "Stable with potential for increased clarity."
+    },
+    "isLive": true
+  },
+  {
+    "id": "1292012518",
+    "name": "Live: Tehran, Tehran, Iran",
+    "emoji": "🚨",
+    "location": "Tehran, Tehran, Iran",
+    "lat": 35.75,
+    "lng": 51.5148,
+    "color": "var(--red)",
+    "signals": [
+      {
+        "source": "GDELT",
+        "type": "event_record",
+        "value": "Event 0193 detected at Tehran, Tehran, Iran",
+        "timestamp": "20260303011500"
+      }
+    ],
+    "analysis": {
+      "threat_level": "LOW",
+      "affected_zones": [
+        "Tehran City Center"
+      ],
+      "primary_threat": "Unspecified incident with unclear consequences.",
+      "immediate_actions": [
+        {
+          "action": "Gather more information",
+          "sector": "Tehran",
+          "priority": 1,
+          "time_sensitive": false
+        }
+      ],
+      "reasoning": "Data indicates a vague disturbance in Tehran, lacking concrete details.",
+      "resource_allocation": {
+        "rescue_units": 0,
+        "medical_teams": 0,
+        "supply_drops": 0,
+        "evacuation_buses": 0
+      },
+      "signal_credibility": {
+        "high": 0,
+        "medium": 0,
+        "low": 1
+      },
+      "estimated_affected_population": "Unknown",
+      "next_6_hours_prediction": "Stable with potential for increased clarity."
+    },
+    "isLive": true
+  },
+  {
+    "id": "FOCUS_TAAL VOLCANO_1772499897",
+    "name": "Live: taal volcano",
+    "emoji": "🚨",
+    "location": "taal volcano",
+    "lat": 14.0106736,
+    "lng": 120.9985863,
+    "color": "var(--red)",
+    "signals": [
+      {
+        "source": "GDELT",
+        "type": "event_record",
+        "value": "Event FOCUS detected at taal volcano",
+        "timestamp": "1772499898"
+      }
+    ],
+    "analysis": {
+      "threat_level": "LOW",
+      "affected_zones": [
+        "Taal Volcano Surroundings"
+      ],
+      "primary_threat": "Potential volcanic activity with no reported casualties or damage.",
+      "immediate_actions": [
+        {
+          "action": "Monitor volcanic activity",
+          "sector": "Taal Volcano",
+          "priority": 1,
+          "time_sensitive": true
+        }
+      ],
+      "reasoning": "Data indicates heightened volcanic activity at Taal Volcano, suggesting a potential eruption.",
+      "resource_allocation": {
+        "rescue_units": 0,
+        "medical_teams": 0,
+        "supply_drops": 0,
+        "evacuation_buses": 0
+      },
+      "signal_credibility": {
+        "high": 0,
+        "medium": 1,
+        "low": 0
+      },
+      "estimated_affected_population": "Unknown",
+      "next_6_hours_prediction": "Increased seismicity possible."
+    },
+    "isLive": true
+  },
+  {
+    "id": "FOCUS_MEGHALAYA_1772499867",
+    "name": "Live: meghalaya",
+    "emoji": "🚨",
+    "location": "meghalaya",
+    "lat": 25.5379432,
+    "lng": 91.2999102,
+    "color": "var(--red)",
+    "signals": [
+      {
+        "source": "GDELT",
+        "type": "event_record",
+        "value": "Event FOCUS detected at meghalaya",
+        "timestamp": "1772499868"
+      }
+    ],
+    "analysis": {
+      "threat_level": "LOW",
+      "affected_zones": [
+        "Meghalaya Region"
+      ],
+      "primary_threat": "Uncorroborated reports of potential disruptions in Meghalaya.",
+      "immediate_actions": [
+        {
+          "action": "Gather more information",
+          "sector": "Meghalaya",
+          "priority": 1,
+          "time_sensitive": false
+        }
+      ],
+      "reasoning": "Sparse data hints at minor, unconfirmed disturbances in Meghalaya.",
+      "resource_allocation": {
+        "rescue_units": 0,
+        "medical_teams": 0,
+        "supply_drops": 0,
+        "evacuation_buses": 0
+      },
+      "signal_credibility": {
+        "high": 0,
+        "medium": 0,
+        "low": 1
+      },
+      "estimated_affected_population": "Unknown",
+      "next_6_hours_prediction": "Stable, with potential for increased clarity on situation."
+    },
+    "isLive": true
+  },
+  {
+    "id": "FOCUS_HAITI_1772499806",
+    "name": "Live: haiti",
+    "emoji": "🚨",
+    "location": "haiti",
+    "lat": 19.1399952,
+    "lng": -72.3570972,
+    "color": "var(--red)",
+    "signals": [
+      {
+        "source": "GDELT",
+        "type": "event_record",
+        "value": "Event FOCUS detected at haiti",
+        "timestamp": "1772499807"
+      }
+    ],
+    "analysis": {
+      "threat_level": "LOW",
+      "affected_zones": [
+        "Haiti"
+      ],
+      "primary_threat": "Uncorroborated reports of potential disruptions in Haiti.",
+      "immediate_actions": [
+        {
+          "action": "Gather more information",
+          "sector": "Haiti",
+          "priority": 1,
+          "time_sensitive": false
+        }
+      ],
+      "reasoning": "Sparse data hints at minor unrest in Haiti's capital.",
+      "resource_allocation": {
+        "rescue_units": 0,
+        "medical_teams": 0,
+        "supply_drops": 0,
+        "evacuation_buses": 0
+      },
+      "signal_credibility": {
+        "high": 0,
+        "medium": 0,
+        "low": 1
+      },
+      "estimated_affected_population": "Unknown",
+      "next_6_hours_prediction": "Stable with potential for minor disruptions."
+    },
+    "isLive": true
+  },
+  {
+    "id": "FOCUS_TEL AVIV_1772499750",
+    "name": "Live: tel aviv",
+    "emoji": "🚨",
+    "location": "tel aviv",
+    "lat": 32.0852997,
+    "lng": 34.7818064,
+    "color": "var(--red)",
+    "signals": [
+      {
+        "source": "GDELT",
+        "type": "event_record",
+        "value": "Event FOCUS detected at tel aviv",
+        "timestamp": "1772499751"
+      }
+    ],
+    "analysis": {
+      "threat_level": "LOW",
+      "affected_zones": [
+        "Tel Aviv Central"
+      ],
+      "primary_threat": "Uncorroborated reports of minor disruptions in Tel Aviv.",
+      "immediate_actions": [
+        {
+          "action": "Monitor local news for updates",
+          "sector": "Tel Aviv",
+          "priority": 1,
+          "time_sensitive": false
+        }
+      ],
+      "reasoning": "Sparse data hints at a potentially minor incident unfolding in Tel Aviv.",
+      "resource_allocation": {
+        "rescue_units": 0,
+        "medical_teams": 0,
+        "supply_drops": 0,
+        "evacuation_buses": 0
+      },
+      "signal_credibility": {
+        "high": 0,
+        "medium": 0,
+        "low": 1
+      },
+      "estimated_affected_population": "Unknown",
+      "next_6_hours_prediction": "Stable situation expected"
+    },
+    "isLive": true
+  },
+  {
+    "id": "FOCUS_HYDERABAD_1772499656",
+    "name": "Live: hyderabad",
+    "emoji": "🚨",
+    "location": "hyderabad",
+    "lat": 17.385,
+    "lng": 78.4867,
+    "color": "var(--red)",
+    "signals": [
+      {
+        "source": "GDELT",
+        "type": "event_record",
+        "value": "Event FOCUS detected at hyderabad",
+        "timestamp": "1772499656"
+      }
+    ],
+    "analysis": {
+      "threat_level": "LOW",
+      "affected_zones": [
+        "Hyderabad City"
+      ],
+      "primary_threat": "Uncorroborated reports of potential disruptions in Hyderabad.",
+      "immediate_actions": [
+        {
+          "action": "Gather more information",
+          "sector": "Hyderabad",
+          "priority": 1,
+          "time_sensitive": false
+        }
+      ],
+      "reasoning": "Sparse data hints at minor unrest in Hyderabad.",
+      "resource_allocation": {
+        "rescue_units": 0,
+        "medical_teams": 0,
+        "supply_drops": 0,
+        "evacuation_buses": 0
+      },
+      "signal_credibility": {
+        "high": 0,
+        "medium": 0,
+        "low": 1
+      },
+      "estimated_affected_population": "Unknown",
+      "next_6_hours_prediction": "Stable with potential for minor incidents."
+    },
+    "isLive": true
+  },
+  {
+    "id": "FOCUS_SRINAGAR_1772499614",
+    "name": "Live: srinagar",
+    "emoji": "🚨",
+    "location": "srinagar",
+    "lat": 34.0747444,
+    "lng": 74.8204443,
+    "color": "var(--red)",
+    "signals": [
+      {
+        "source": "GDELT",
+        "type": "event_record",
+        "value": "Event FOCUS detected at srinagar",
+        "timestamp": "1772499615"
+      }
+    ],
+    "analysis": {
+      "threat_level": "LOW",
+      "affected_zones": [
+        "Srinagar City"
+      ],
+      "primary_threat": "Uncorroborated reports of potential disruptions in Srinagar.",
+      "immediate_actions": [
+        {
+          "action": "Gather more information",
+          "sector": "Srinagar",
+          "priority": 1,
+          "time_sensitive": false
+        }
+      ],
+      "reasoning": "Sparse data hints at minor unrest in Srinagar, warranting cautious monitoring.",
+      "resource_allocation": {
+        "rescue_units": 0,
+        "medical_teams": 0,
+        "supply_drops": 0,
+        "evacuation_buses": 0
+      },
+      "signal_credibility": {
+        "high": 0,
+        "medium": 0,
+        "low": 1
+      },
+      "estimated_affected_population": "Unknown",
+      "next_6_hours_prediction": "Stable with potential for minor disruptions."
+    },
+    "isLive": true
+  },
+  {
+    "id": "FOCUS_SYDNEY_1772499578",
+    "name": "Live: sydney",
+    "emoji": "🚨",
+    "location": "sydney",
+    "lat": -33.8698439,
+    "lng": 151.2082848,
+    "color": "var(--red)",
+    "signals": [
+      {
+        "source": "GDELT",
+        "type": "event_record",
+        "value": "Event FOCUS detected at sydney",
+        "timestamp": "1772499579"
+      }
+    ],
+    "analysis": {
+      "threat_level": "LOW",
+      "affected_zones": [
+        "Sydney CBD"
+      ],
+      "primary_threat": "Unspecified incident with minimal reported impact.",
+      "immediate_actions": [
+        {
+          "action": "Monitor situation for updates",
+          "sector": "Sydney",
+          "priority": 1,
+          "time_sensitive": false
+        }
+      ],
+      "reasoning": "Data indicates a low-level disturbance in Sydney with no clear details.",
+      "resource_allocation": {
+        "rescue_units": 0,
+        "medical_teams": 0,
+        "supply_drops": 0,
+        "evacuation_buses": 0
+      },
+      "signal_credibility": {
+        "high": 0,
+        "medium": 0,
+        "low": 1
+      },
+      "estimated_affected_population": "0",
+      "next_6_hours_prediction": "Stable with potential for increased clarity."
+    },
+    "isLive": true
+  },
+  {
+    "id": "1292008877",
+    "name": "Live: Iran",
+    "emoji": "🚨",
+    "location": "Iran",
+    "lat": 32.0,
+    "lng": 53.0,
+    "color": "var(--red)",
+    "signals": [
+      {
+        "source": "GDELT",
+        "type": "event_record",
+        "value": "Event 0050 detected at Iran",
+        "timestamp": "20260303010000"
+      }
+    ],
+    "analysis": {
+      "threat_level": "LOW",
+      "affected_zones": [
+        "Iran"
+      ],
+      "primary_threat": "Uncorroborated reports of potential disruptions in Iran.",
+      "immediate_actions": [
+        {
+          "action": "Gather more information",
+          "sector": "Iran",
+          "priority": 1,
+          "time_sensitive": false
+        }
+      ],
+      "reasoning": "Sparse data hints at minor unrest in Iran's rural areas.",
+      "resource_allocation": {
+        "rescue_units": 0,
+        "medical_teams": 0,
+        "supply_drops": 0,
+        "evacuation_buses": 0
+      },
+      "signal_credibility": {
+        "high": 0,
+        "medium": 0,
+        "low": 1
+      },
+      "estimated_affected_population": "Unknown",
+      "next_6_hours_prediction": "Stable with potential for minor developments."
+    },
+    "isLive": true
+  },
+  {
+    "id": "1292008953",
+    "name": "Live: Australia",
+    "emoji": "🚨",
+    "location": "Australia",
+    "lat": -25.0,
+    "lng": 135.0,
+    "color": "var(--red)",
+    "signals": [
+      {
+        "source": "GDELT",
+        "type": "event_record",
+        "value": "Event 0061 detected at Australia",
+        "timestamp": "20260303010000"
+      }
+    ],
+    "analysis": {
+      "threat_level": "LOW",
+      "affected_zones": [
+        "Central Australia"
+      ],
+      "primary_threat": "Unspecified event with minor potential impact.",
+      "immediate_actions": [
+        {
+          "action": "Monitor situation",
+          "sector": "Australia",
+          "priority": 1,
+          "time_sensitive": false
+        }
+      ],
+      "reasoning": "Sparse data hints at a low-impact event unfolding in Central Australia.",
+      "resource_allocation": {
+        "rescue_units": 0,
+        "medical_teams": 0,
+        "supply_drops": 0,
+        "evacuation_buses": 0
+      },
+      "signal_credibility": {
+        "high": 0,
+        "medium": 0,
+        "low": 1
+      },
+      "estimated_affected_population": "0",
+      "next_6_hours_prediction": "Stable conditions expected."
+    },
+    "isLive": true
+  },
+  {
+    "id": "1292009546",
+    "name": "Live: Iran",
+    "emoji": "🚨",
+    "location": "Iran",
+    "lat": 32.0,
+    "lng": 53.0,
+    "color": "var(--red)",
+    "signals": [
+      {
+        "source": "GDELT",
+        "type": "event_record",
+        "value": "Event 0013 detected at Iran",
+        "timestamp": "20260303010000"
+      },
+      {
+        "source": "Reddit",
+        "type": "social_report",
+        "value": "Why didn't we go to war with Iran in 1979? : r/AskHistorians - Reddit",
+        "timestamp": "Recent"
+      },
+      {
+        "source": "Reddit",
+        "type": "social_report",
+        "value": "Did Carter cause the Iran hostage crisis : r/Presidents - Reddit",
+        "timestamp": "Recent"
+      }
+    ],
+    "analysis": {
+      "threat_level": "LOW",
+      "affected_zones": [
+        "Tehran Province"
+      ],
+      "primary_threat": "Speculative online discussions about historical events with no current incident reports.",
+      "immediate_actions": [
+        {
+          "action": "Monitor online forums for escalation",
+          "sector": "Cybersecurity",
+          "priority": 1,
+          "time_sensitive": false
+        }
+      ],
+      "reasoning": "Historical debates simmer in online forums, devoid of current threats.",
+      "resource_allocation": {
+        "rescue_units": 0,
+        "medical_teams": 0,
+        "supply_drops": 0,
+        "evacuation_buses": 0
+      },
+      "signal_credibility": {
+        "high": 0,
+        "medium": 0,
+        "low": 1
+      },
+      "estimated_affected_population": "0",
+      "next_6_hours_prediction": "Stable, no expected incidents."
+    },
+    "isLive": true
+  },
+  {
     "id": "1291992355",
     "name": "Live: Texas, United States",
     "emoji": "🚨",

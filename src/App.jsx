@@ -406,20 +406,47 @@ export default function App() {
     localStorage.setItem("intelmap_history", JSON.stringify(history));
   }, [history]);
 
-  // Load live incidents on mount
-  useEffect(() => {
-    fetch('/live_incidents.json')
+  // ── Live incident polling (every 5 minutes) ───────────────────────
+  const POLL_INTERVAL = 5 * 60 * 1000; // 5 minutes in ms
+
+  const fetchLiveIncidents = () => {
+    // Try the backend API first (always fresh), fall back to static file
+    fetch('http://localhost:5000/api/incidents')
       .then(res => res.json())
       .then(data => {
         if (Array.isArray(data) && data.length > 0) {
           setActiveScenarios(prev => {
-            // Merge live with mock (if any) or just replace
-            return [...data];
+            // Keep incidents that the user hasn't handled yet; add new ones
+            const existingIds = new Set(prev.map(s => s.id));
+            const newOnes = data.filter(s => !existingIds.has(s.id));
+            if (newOnes.length === 0) return prev; // nothing changed
+            return [...newOnes, ...prev];
           });
         }
       })
-      .catch(err => console.error("No live incidents yet."));
-  }, []);
+      .catch(() => {
+        // Backend not running — fall back to the static JSON file
+        fetch('/live_incidents.json')
+          .then(res => res.json())
+          .then(data => {
+            if (Array.isArray(data) && data.length > 0) {
+              setActiveScenarios(prev => {
+                const existingIds = new Set(prev.map(s => s.id));
+                const newOnes = data.filter(s => !existingIds.has(s.id));
+                if (newOnes.length === 0) return prev;
+                return [...newOnes, ...prev];
+              });
+            }
+          })
+          .catch(err => console.warn("No live incidents available:", err));
+      });
+  };
+
+  useEffect(() => {
+    fetchLiveIncidents(); // immediate load on mount
+    const intervalId = setInterval(fetchLiveIncidents, POLL_INTERVAL);
+    return () => clearInterval(intervalId);
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   const handleSearch = async (e) => {
     e.preventDefault();
