@@ -1,5 +1,164 @@
 [
   {
+    "id": "1291992355",
+    "name": "Live: Texas, United States",
+    "emoji": "🚨",
+    "location": "Texas, United States",
+    "lat": 31.106,
+    "lng": -97.6475,
+    "color": "var(--red)",
+    "signals": [
+      {
+        "source": "GDELT",
+        "type": "event_record",
+        "value": "Event 0010 detected at Texas, United States",
+        "timestamp": "20260302233000"
+      }
+    ],
+    "analysis": {
+      "threat_level": "LOW",
+      "affected_zones": [
+        "Texas"
+      ],
+      "primary_threat": "Unspecified minor disruptions in Texas.",
+      "immediate_actions": [
+        {
+          "action": "Monitor situation",
+          "sector": "Texas",
+          "priority": 1,
+          "time_sensitive": false
+        }
+      ],
+      "reasoning": "Sparse data hints at minor Texas disruptions.",
+      "resource_allocation": {
+        "rescue_units": 0,
+        "medical_teams": 0,
+        "supply_drops": 0,
+        "evacuation_buses": 0
+      },
+      "signal_credibility": {
+        "high": 0,
+        "medium": 0,
+        "low": 1
+      },
+      "estimated_affected_population": "Unknown",
+      "next_6_hours_prediction": "Stable situation expected."
+    },
+    "isLive": true
+  },
+  {
+    "id": "1291991486",
+    "name": "Live: Texas, United States",
+    "emoji": "🚨",
+    "location": "Texas, United States",
+    "lat": 31.106,
+    "lng": -97.6475,
+    "color": "var(--red)",
+    "signals": [
+      {
+        "source": "GDELT",
+        "type": "event_record",
+        "value": "Event 0043 detected at Texas, United States",
+        "timestamp": "20260302233000"
+      }
+    ],
+    "analysis": {
+      "threat_level": "LOW",
+      "affected_zones": [
+        "Texas"
+      ],
+      "primary_threat": "Unspecified event with minor potential impact.",
+      "immediate_actions": [
+        {
+          "action": "Monitor situation",
+          "sector": "Texas",
+          "priority": 1,
+          "time_sensitive": false
+        }
+      ],
+      "reasoning": "Data indicates a vague, low-impact event in Texas, lacking concrete details.",
+      "resource_allocation": {
+        "rescue_units": 0,
+        "medical_teams": 0,
+        "supply_drops": 0,
+        "evacuation_buses": 0
+      },
+      "signal_credibility": {
+        "high": 0,
+        "medium": 0,
+        "low": 1
+      },
+      "estimated_affected_population": "Unknown",
+      "next_6_hours_prediction": "Stable with potential for clarification."
+    },
+    "isLive": true
+  },
+  {
+    "id": "1291992193",
+    "name": "Live: Vientiane, (LA11), Laos",
+    "emoji": "🚨",
+    "location": "Vientiane, (LA11), Laos",
+    "lat": 17.9667,
+    "lng": 102.6,
+    "color": "var(--red)",
+    "signals": [
+      {
+        "source": "GDELT",
+        "type": "event_record",
+        "value": "Event 0057 detected at Vientiane, (LA11), Laos",
+        "timestamp": "20260302233000"
+      },
+      {
+        "source": "News",
+        "type": "news_clip",
+        "value": "UNDP assists the Government of Lao PDR to Strengthen Disaster Response ...",
+        "timestamp": "Just now"
+      },
+      {
+        "source": "News",
+        "type": "news_clip",
+        "value": "LaoDi",
+        "timestamp": "Just now"
+      },
+      {
+        "source": "News",
+        "type": "news_clip",
+        "value": "Heavy rainfall continues to wreak havoc across Laos - Asia News ...",
+        "timestamp": "Just now"
+      }
+    ],
+    "analysis": {
+      "threat_level": "MEDIUM",
+      "affected_zones": [
+        "Vientiane"
+      ],
+      "primary_threat": "Heavy rainfall causing significant disruptions across the city.",
+      "immediate_actions": [
+        {
+          "action": "Deploy emergency response teams",
+          "sector": "Vientiane",
+          "priority": 1,
+          "time_sensitive": true
+        }
+      ],
+      "reasoning": "Data indicates Vientiane is experiencing intense rainfall, suggesting potential flooding.",
+      "resource_allocation": {
+        "rescue_units": 2,
+        "medical_teams": 1,
+        "supply_drops": 1,
+        "evacuation_buses": 0
+      },
+      "signal_credibility": {
+        "high": 0,
+        "medium": 1,
+        "low": 0
+      },
+      "estimated_affected_population": "Thousands of civilians",
+      "next_6_hours_prediction": "Continued heavy rainfall with increased risk of flooding."
+    },
+    "isLive": true
+  },
+  {
     "id": "1291990769",
     "name": "Live: Doha, Ad Daw'ah, Qatar",
     "emoji": "🚨",

@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from "react";
 import { analyzeDisasterSignals } from "./services/gemini";
 import { disasterScenarios } from "./data/mockSignals";
 import { demoResponses } from "./data/demoResponses";
+import CinematicEarth from "./CinematicEarth";
 import "./index.css";
 import "./App.css";
 
@@ -17,7 +18,7 @@ function Clock() {
 
 // ─── Cinematic Intro ─────────────────────────────────────────────────────────
 function CinematicIntro({ showIntro }) {
-  const [lines, setLines] = useState(["> INITIALIZING DISASTER PREVENTION GRID..."]);
+  const [activeLine, setActiveLine] = useState("> INITIALIZING DISASTER PREVENTION GRID...");
 
   useEffect(() => {
     const sequence = [
@@ -29,30 +30,24 @@ function CinematicIntro({ showIntro }) {
     ];
 
     sequence.forEach(({ t, msg }) => {
-      setTimeout(() => setLines(prev => [...prev, `> ${msg}`]), t);
+      setTimeout(() => setActiveLine(`> ${msg}`), t);
     });
   }, []);
 
   return (
     <div className={`cinematic-intro ${!showIntro ? 'fade-out' : ''}`}>
-      <div className="cinematic-earth-container">
-        <div className="cinematic-earth" />
-        <div className="cinematic-ring">
-          <div className="cinematic-text-wrap">
-            <div className="cinematic-text-scroll">
-              INTELMAP
-            </div>
-          </div>
-        </div>
-      </div>
+      {/* Three.js Earth + orbiting INTELMAP text */}
+      <CinematicEarth />
 
-      <div className="cinematic-console">
-        {lines.map((line, i) => (
-          <div key={i} className="cinematic-console-line">
-            {line.replace("> ", "")}
-            {i === lines.length - 1 && <span className="console-blink" style={{ color: "var(--text)" }}>_</span>}
-          </div>
-        ))}
+      <div className="cinematic-loading-ui">
+        <div className="cinematic-progress-container">
+          <div className="cinematic-progress-bar" />
+        </div>
+
+        {/* key={activeLine} forces animation restart on text change */}
+        <div key={activeLine} className="cinematic-console-line">
+          {activeLine}
+        </div>
       </div>
     </div>
   );
@@ -380,10 +375,10 @@ export default function App() {
   const [showIntro, setShowIntro] = useState(true);
   const [actuallyRenderIntro, setActuallyRenderIntro] = useState(true);
 
-  // Leave exactly at 6s, then unmount after fade completes
+  // Leave exactly at 7s, then unmount after fade completes
   useEffect(() => {
-    const timer1 = setTimeout(() => setShowIntro(false), 6000); // Trigger fade 
-    const timer2 = setTimeout(() => setActuallyRenderIntro(false), 7000); // Completely remove DOM
+    const timer1 = setTimeout(() => setShowIntro(false), 7000); // Trigger fade 
+    const timer2 = setTimeout(() => setActuallyRenderIntro(false), 8000); // Completely remove DOM
     return () => { clearTimeout(timer1); clearTimeout(timer2); }
   }, []);
 
